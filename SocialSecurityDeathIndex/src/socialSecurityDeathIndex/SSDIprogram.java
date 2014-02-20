@@ -73,6 +73,7 @@ public class SSDIprogram {
 	 */
 	public static void main(String[] args) {
 		JOptionPane.showMessageDialog(null, "Hello, world!", "Sample message box", JOptionPane.INFORMATION_MESSAGE);
+		
 		int iCount = 0;
 		try {
 			String sPassword = GetPassword( );
@@ -100,12 +101,14 @@ public class SSDIprogram {
 				}
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
+			} finally {
+				reader.close();
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
 		
 		System.out.println( iCount );
 	}
