@@ -1,0 +1,100 @@
+ 242250440JONES                   JERRY          L              P0213201108061964                   
+ 242250442SUMMERLIN               BRIAN          D              P0420199701091969                   
+ 242250542DOUGALS                 ANNIE          R              V0630200611051961                   
+ 242250591MOORE                   ANGELA         M              P0322200812241962                   
+ 242250594MCDOUGALD               JEFFERY        L              V0428200306111961                   
+ 242250623WRIGHT                  M              C              V0200199701191960                   
+ 242250643JOHNSON                 PRISCILLA                      0500198905291905                   
+ 242250660BULLOCK                 TRACY          W              P1224200704141965                   
+ 242250680TATE                    RONNIE         D              V1113200211161957                   
+ 242250683DRIVER                  DAVID          L              P1203200302131964                   
+ 242250821HARDIE                  TIMOTHY        D              P1031200811061963                   
+ 242250824SANDLING                LOU                            0100198004121897                   
+ 242250843ARMSTRONG               PHYLLIS        D              P0916200204081960                   
+ 242250858VERITY                  RAYMOND                        0200198711121915                   
+ 242250907CARTER,             JR  EDWARD         E              P1019199710301962                   
+ 242250922MCCRIMMON               MARK           A              V0112201003241965                   
+ 242250930PATE                    J              D              V0800199809091959                   
+ 242250934ERNSBERGER              LISA                          P0401200312171963                   
+ 242250938GOODMAN                 ANTHA                          0400198404021895                   
+ 242250939SYVERSON                MELANIE        L              P0212200108131964                   
+ 242250942WILKERSON               WILLIAM        S              P1120200701241961                   
+ 242250954MOSS                    FLETCHER                       0800196207101905                   
+ 242250955WEST                    KERRY          S              V1130200708041960                   
+ 242251002FELDER                  DECENTO        L              P0817199903211977                   
+ 242251005DAILEY                  K                              0900198805271961                   
+ 242251008AYERS                   DEBORAH        J              P1221200503241962                   
+ 242251074JONES                   MONTA          T               1102200202191977                   
+ 242251080TILLMAN                 MARK                           0600198512311962                   
+ 242251134LANE                    BECKY          D              P0306201007221961                   
+ 242251232BLEDSOE                 DANNY          C              V0505200512291961                   
+ 242251249HARTMAN                 ALMON                          0400198401301943                   
+ 242251282SULLIVAN                DONALD         C              P0907200306171962                   
+ 242251305EVERETTE                DANIEL                        V0410200306261976                   
+ 242251330HESTER                  TERRY          D              V1107200807261962                   
+ 242251356SMITH                   ETHEL          B               0503199008071904                   
+ 242251362HOUSER                  STEVEN                         0200197912281959                   
+ 242251370DREHER                  ROCKY          D              P0513200605231977                   
+ 242251372SWAIN                   A              T              V0200199701201969                   
+ 242251405HOOKS                   SARAH          A              V0415200407021969                   
+ 242251484MONLEY                  CRYSTAL        M              P0615199801241970                   
+ 242251490CARTER                  MARK           E               1212198507171963                   
+ 242251555UPCHURCH                JASON          B              P0320200504141965                   
+ 242251565ARMSTRONG               JOSEPH                        P0601200212011961                   
+ 242251579CROSBY                  CHRISTIAN      B              V0225201006141962                   
+ 242251662PIERCE                  LUCILLE                        0900197801091908                   
+ 242251722WARD                    NANCY          B              V0614201005251965                   
+ 242251773PHILLIPS                CYNTHIA        A              V0910200707211961                   
+ 242251787ANGELOPOLUS             CALAINE                       P0730200301181965                   
+ 242251847DAVIS                   GARY           L              P0921200910311963                   
+ 242251855WHITLEY                 CHRISTOPHE     K              P0323200405181965                   
+ 242251882LEE                     KENZA          S              P0901199710231970                   
+ 242251945OSTEEN                  ANTHONY        A              P0501200309231963                   
+ 242251953MOORE                   CHARLES        W              V0320200506021961                   
+ 242251974CHOATE                  G              A              V1206200006281967                   
+ 242251983BETHEA                  GREGORY        C              V1010200804051964                   
+ 242252040PASTORICK               TONYA          V               0615200803091968                   
+ 242252041RICHARDSON              JOSHUA         T              P0601200401161977                   
+ 242252074TEAGUE                  DENNIS         J              V0513201009021961                   
+ 242252075TURNMIRE                MICHAEL        T              V0124200811291961                   
+ 242252123GODWIN                  ANTHONY        G               0212199409011962                   
+ 242252131WATKINS                 NINA                           1006199410061915                   
+ 242252140FRIDAY                  WINIFRED       R              P0426199801081962                   
+ 242252144BARE                    CHESSIE                        0700198108131892                   
+ 242252151DAVIS                   JEFFERY        T              P0907200508311964                   
+ 242252157SHUMATE                 TIMOTHY        W              V0930200706211976                   
+ 242252206AMMONS                  LARRY          E              V0415199905051961                   
+ 242252217HUDSON                  THOMAS         R              P0308200008241960                   
+ 242252223GUILLORY                KEITH          F              V1114200102101961                   
+ 242252228MCCRIMMON               PHAEDRA        R              P1211200602161972                   
+ 242252236BRAYBOY                 GLORIA         A              P0601200205061961                   
+ 242252343JONES                   JOHN           S               0400199007051909                   
+ 242252424STRONG                  TERRY          L              V1028201003251977                   
+ 242252466SMITH                   LULA                           1200197807311891                   
+ 242252487BURT                    TERRY          P              V1016201012191963                   
+ 242252493DELLINGER               STEVEN         E              V0721201012131965                   
+ 242252494FITCH                   DANA           M              V0819200511291969                   
+ 242252497BANNER                  EVOLENE                       V0709199604031913                   
+ 242252499MOODY                   DOLLIE                         1100198304081892                   
+ 242252553RAY                     HELEN                          0900197905261896                   
+ 242252562MCNAIR                  K                              0100199403161961                   
+ 242252583TOXEY                   QUINTON                       P0911200802091964                   
+ 242252589MCALISTER               LORITA         B              V0907200101281965                   
+ 242252590YOUNG                   MARTHA         S              P0525200709221964                   
+ 242252598HIMMELHEBER             CHARLES        R              P0724200503141962                   
+ 242252606NOONAN                  PATRICK        S              V0312200809181964                   
+ 242252648MYERS                   JAMES          L              V0111200707051963                   
+ 242252668ISENHOUR                MARK           A              P0709200210281961                   
+ 242252674NANCE                   EDITH          T              P1220200606201915                   
+ 242252702JUSTUS                  ANNIE                          0800198207221901                   
+ 242252714WELLS                   DOUG                           0600198003291961                   
+ 242252759WORKMAN                 CHEYENNE       C              P0831200705081972                   
+ 242252792JACKSON                 TONYA          J              P0128200409121961                   
+ 242252796JOHNSON                 ANNA           M              V0306200910121960                   
+ 242252821FISH                    TIMOTHY        G               0530200612271963                   
+ 242252834GARRETT                 HERBERT                        0300198312201925                   
+ 242252851CUTHRELL                JEFFREY        M              V0512201010111963                   
+ 242252855HENSLEY                 DENNIS         R              V0908200610101963                   
+ 242252892WILSON                  MACK                           1000198502071914                   
+ 242252898BILLINGS                GLENDA         F              V0609201003161961                   
+ 242252916FERGUSON                MARY                           1200198404181901                   
