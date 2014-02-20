@@ -4,6 +4,7 @@
 package socialSecurityDeathIndex;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -71,20 +72,20 @@ public class SSDIprogram {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		JOptionPane.showMessageDialog(null, "Hello, world!", "Sample message box", JOptionPane.INFORMATION_MESSAGE);
-		
+	public static void main(String[] args) {	
 		int iCount = 0;
 		try {
 			String sPassword = GetPassword( );
 			if ( sPassword != null )
 				ConnectToDatabase( sPassword );
-			String sDeathMasterFile = "/home/vlcek/Downloads/ssdm1.txt";
-			final JFileChooser fOpen = new JFileChooser();
+			File fSrcPath = new File( SSDIprogram.class.getResource(".").getPath() );
+			File fTestDataPath = new File( fSrcPath, "test/resources" );
+			File fDeathMasterFile = new File( fTestDataPath, "ssdm_sample.txt" );
+			final JFileChooser fOpen = new JFileChooser( fTestDataPath );
 			int iResult = fOpen.showOpenDialog(null);
 			if ( iResult == JFileChooser.APPROVE_OPTION)
-				sDeathMasterFile = fOpen.getSelectedFile().getPath();
-			BufferedReader reader = new BufferedReader(new FileReader(sDeathMasterFile));
+				fDeathMasterFile = fOpen.getSelectedFile();
+			BufferedReader reader = new BufferedReader(new FileReader(fDeathMasterFile));
 			String line = null;
 			try {
 				while ((line = reader.readLine()) != null) {
@@ -110,6 +111,6 @@ public class SSDIprogram {
 			e.printStackTrace();
 		}
 		
-		System.out.println( iCount );
+		JOptionPane.showMessageDialog(null, String.valueOf(iCount) + " total records read", "SSDM Import completed", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
