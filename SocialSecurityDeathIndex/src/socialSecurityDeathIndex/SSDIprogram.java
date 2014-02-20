@@ -78,8 +78,8 @@ public class SSDIprogram {
 			String sPassword = GetPassword( );
 			if ( sPassword != null )
 				ConnectToDatabase( sPassword );
-			File fSrcPath = new File( SSDIprogram.class.getResource(".").getPath() );
-			File fTestDataPath = new File( fSrcPath, "test/resources" );
+			File fRootPath = new File( System.getProperty("user.dir") );
+			File fTestDataPath = new File( fRootPath, "src/test/resources" );
 			File fDeathMasterFile = new File( fTestDataPath, "ssdm_sample.txt" );
 			final JFileChooser fOpen = new JFileChooser( fTestDataPath );
 			int iResult = fOpen.showOpenDialog(null);
