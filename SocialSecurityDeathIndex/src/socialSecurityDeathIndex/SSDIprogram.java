@@ -3,6 +3,7 @@
  */
 package socialSecurityDeathIndex;
 
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,17 +55,29 @@ public class SSDIprogram {
 	
 	private static String GetPassword()
 	{
-		JPanel panel = new JPanel();
-		JLabel label = new JLabel("Enter password:");
-		JPasswordField pass = new JPasswordField(10);
-		panel.add(label);
-		panel.add(pass);
+		//Using a JPanel as the message for the JOptionPane
+		JPanel userPanel = new JPanel();
+		userPanel.setLayout(new GridLayout(2,2));
+
+		//Labels for the textfield components        
+		JLabel lblUsername = new JLabel("Username:");
+		JLabel lblPassword = new JLabel("Password:");
+
+		JTextField username = new JTextField();
+		JPasswordField fldPassword = new JPasswordField();
+
+		//Add the components to the JPanel        
+		userPanel.add(lblUsername);
+		userPanel.add(username);
+		userPanel.add(lblPassword);
+		userPanel.add(fldPassword);
+		
 		String[] options = new String[]{"OK", "Cancel"};
-		int option = JOptionPane.showOptionDialog(null, panel, "Log in to database",
+		int option = JOptionPane.showOptionDialog(null, userPanel, "Log in to database",
 		                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 		                         null, options, options[0]);
-		if (option == 0) // pressing OK button
-		    return new String( pass.getPassword() );
+		if (option == JOptionPane.OK_OPTION) // pressing OK button
+		    return new String( fldPassword.getPassword() );
 		else
 			return null;
 	}
