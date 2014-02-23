@@ -21,8 +21,8 @@ import javax.swing.*;
  */
 public class SSDIprogram {
 	
-	private static DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
-	private static DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
+	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
+	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
 	
 	public static final String DEFAULT_DATABASE_HOST = "localhost";
 	public static final int DEFAULT_PORT = 3306;
