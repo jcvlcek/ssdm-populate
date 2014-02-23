@@ -12,7 +12,6 @@ public class DeathRecord implements IDeathRecord {
 	/*
 	 * 
 	 */
-	// private static DateFormat mDateFormat = new SimpleDateFormat("MMddyyyy HH:mm:ss");
 	
 	private long mSSAN;
 	private String mGivenName;
