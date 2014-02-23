@@ -24,11 +24,20 @@ public class SSDIprogram {
 	private static DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
 	private static DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
 	
+	public static final String DEFAULT_DATABASE_HOST = "localhost";
+	public static final int DEFAULT_PORT = 3306;
+	public static final String DEFAULT_DATABASE_USER = "root";
+	public static final String DEFAULT_DATABASE_NAME = "SSDI";
+	public static final String DEFAULT_URL_BASE = "jdbc:mysql://";
+	public static final String DEFAULT_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
+	
 	private static int ConnectToDatabase( String sPassword )
 	{
-		String url = "jdbc:mysql://localhost:3306/", user = "root";
-		String dbName = "SSDI";
-		String driver = "com.mysql.jdbc.Driver";
+		String url = "jdbc:mysql://localhost:3306/";
+		url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( DEFAULT_PORT ) + "/";
+		String user = DEFAULT_DATABASE_USER;
+		String dbName = DEFAULT_DATABASE_NAME;
+		String driver = DEFAULT_DATABASE_DRIVER;
 		try {
 			Class.forName(driver).newInstance();
 			Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
