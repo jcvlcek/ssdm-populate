@@ -44,7 +44,7 @@ public class SSDIprogram {
 			conn.close();
 			return 0;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + dbName + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			return -1;
 		} catch (ClassNotFoundException e) {
