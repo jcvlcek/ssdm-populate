@@ -33,8 +33,7 @@ public class SSDIprogram {
 	
 	private static int ConnectToDatabase( String sPassword )
 	{
-		String url = "jdbc:mysql://localhost:3306/";
-		url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( DEFAULT_PORT ) + "/";
+		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( DEFAULT_PORT ) + "/";
 		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
