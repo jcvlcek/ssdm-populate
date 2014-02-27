@@ -3,13 +3,11 @@
  */
 package socialSecurityDeathIndex;
 
-import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -23,72 +21,6 @@ public class SSDIprogram {
 	
 	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
 	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
-	
-	public static final String DEFAULT_DATABASE_HOST = "localhost";
-	public static final int DEFAULT_PORT = 3306;
-	public static final String DEFAULT_DATABASE_USER = "root";
-	public static final String DEFAULT_DATABASE_NAME = "SSDI";
-	public static final String DEFAULT_URL_BASE = "jdbc:mysql://";
-	public static final String DEFAULT_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-	
-	private static int ConnectToDatabase( String sPassword )
-	{
-		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( DEFAULT_PORT ) + "/";
-		String user = DEFAULT_DATABASE_USER;
-		String dbName = DEFAULT_DATABASE_NAME;
-		String driver = DEFAULT_DATABASE_DRIVER;
-		try {
-			Class.forName(driver).newInstance();
-			Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
-			conn.close();
-			return 0;
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + dbName + "\"", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-			return -1;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return -1;
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return -1;
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return -1;
-		}
-	}
-	
-	private static String GetPassword()
-	{
-		//Using a JPanel as the message for the JOptionPane
-		JPanel userPanel = new JPanel();
-		userPanel.setLayout(new GridLayout(2,2));
-
-		//Labels for the textfield components        
-		JLabel lblUsername = new JLabel("Username:");
-		JLabel lblPassword = new JLabel("Password:");
-
-		JTextField username = new JTextField();
-		JPasswordField fldPassword = new JPasswordField();
-
-		//Add the components to the JPanel        
-		userPanel.add(lblUsername);
-		userPanel.add(username);
-		userPanel.add(lblPassword);
-		userPanel.add(fldPassword);
-		
-		String[] options = new String[]{"OK", "Cancel"};
-		int option = JOptionPane.showOptionDialog(null, userPanel, "Log in to database",
-		                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-		                         null, options, options[0]);
-		if (option == JOptionPane.OK_OPTION) // pressing OK button
-		    return new String( fldPassword.getPassword() );
-		else
-			return null;
-	}
 
 	/**
 	 * @param args
@@ -96,9 +28,9 @@ public class SSDIprogram {
 	public static void main(String[] args) {	
 		int iCount = 0;
 		try {
-			String sPassword = GetPassword( );
+			String sPassword = DatabaseConnection.GetPassword( );
 			if ( sPassword != null )
-				ConnectToDatabase( sPassword );
+				MySqlDatabaseConnection.ConnectToDatabase( sPassword );
 			File fRootPath = new File( System.getProperty("user.dir") );
 			File fTestDataPath = new File( fRootPath, "src/test/resources" );
 			File fDeathMasterFile = new File( fTestDataPath, "ssdm_sample.txt" );
