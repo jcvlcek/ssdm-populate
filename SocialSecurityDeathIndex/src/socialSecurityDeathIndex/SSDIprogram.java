@@ -28,9 +28,13 @@ public class SSDIprogram {
 	public static void main(String[] args) {	
 		int iCount = 0;
 		try {
-			String sPassword = DatabaseConnection.GetPassword( );
-			if ( sPassword != null )
-				MySqlDatabaseConnection.ConnectToDatabase( sPassword );
+			MySqlDatabaseConnection conn = new MySqlDatabaseConnection();
+			try {
+				conn.Connect();
+			} catch (DbConnectionException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			File fRootPath = new File( System.getProperty("user.dir") );
 			File fTestDataPath = new File( fRootPath, "src/test/resources" );
 			File fDeathMasterFile = new File( fTestDataPath, "ssdm_sample.txt" );

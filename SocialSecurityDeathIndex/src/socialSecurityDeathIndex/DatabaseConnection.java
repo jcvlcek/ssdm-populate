@@ -4,6 +4,7 @@
 package socialSecurityDeathIndex;
 
 import java.awt.GridLayout;
+import java.sql.SQLException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,11 +18,16 @@ import javax.swing.JTextField;
  */
 public abstract class DatabaseConnection implements IDatabaseConnection {
 
+	public static final String DEFAULT_DATABASE_HOST = "localhost";
+	public static final String DEFAULT_DATABASE_NAME = "SSDI";
+	
+	private String mDatabaseName;
+
 	/**
 	 * Default constructor for the DatabaseConnection class
 	 */
 	public DatabaseConnection() {
-		// TODO Auto-generated constructor stub
+		mDatabaseName = DEFAULT_DATABASE_NAME;
 	}
 	
 	/**
@@ -62,8 +68,23 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 */
 	@Override
 	public void Connect() throws DbConnectionException {
-		// TODO Auto-generated method stub
-
+		try {
+			String sPassword = GetPassword();
+			if ( sPassword != null )
+				ConnectToDatabase( sPassword );
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -73,7 +94,6 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public void Connect(String Hostname, String database)
 			throws DbConnectionException {
 		// TODO Auto-generated method stub
-
 	}
 
 	/* (non-Javadoc)
@@ -83,6 +103,13 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public void Disconnect() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public abstract void ConnectToDatabase( String sPassword ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	
+	public String getDatabaseName()
+	{
+		return mDatabaseName;
 	}
 
 }

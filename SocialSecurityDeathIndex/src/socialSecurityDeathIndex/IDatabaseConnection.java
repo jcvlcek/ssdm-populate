@@ -26,4 +26,10 @@ public interface IDatabaseConnection {
 	 * Close the connection to the database
 	 */
 	void Disconnect();
+	
+	/**
+	 * Get the name of the database on the remote host
+	 * @return the name of the database
+	 */
+	String getDatabaseName();
 }
