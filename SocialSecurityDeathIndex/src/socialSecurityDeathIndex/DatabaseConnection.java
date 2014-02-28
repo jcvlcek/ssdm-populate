@@ -21,6 +21,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public static final String DEFAULT_DATABASE_HOST = "localhost";
 	public static final String DEFAULT_DATABASE_NAME = "SSDI";
 	
+	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
+	
 	private String mDatabaseName;
 
 	/**
@@ -76,7 +78,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Required database connection class not loaded:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
