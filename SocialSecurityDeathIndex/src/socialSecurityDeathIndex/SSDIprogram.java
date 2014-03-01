@@ -23,18 +23,23 @@ public class SSDIprogram {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {	
+	
+	public static void Connect( String sDatabaseType )
+	{
+		IDatabaseConnection conn = sDatabaseType.equals( "MySQL" ) ?
+				new MySqlDatabaseConnection() :
+				new SqlServerDatabaseConnection();
+		try {
+			conn.Connect();
+		} catch (DbConnectionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+	}
+	
+	public static void LoadMasterFile() {	
 		int iCount = 0;
 		try {
-			IDatabaseConnection conn = 
-					// new MySqlDatabaseConnection();
-					new SqlServerDatabaseConnection();
-			try {
-				conn.Connect();
-			} catch (DbConnectionException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			File fRootPath = new File( System.getProperty("user.dir") );
 			File fTestDataPath = new File( fRootPath, "src/test/resources" );
 			File fDeathMasterFile = new File( fTestDataPath, "ssdm_sample.txt" );
