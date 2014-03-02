@@ -48,6 +48,7 @@ public class SSDIprogram {
 			if ( iResult == JFileChooser.APPROVE_OPTION)
 				fDeathMasterFile = fOpen.getSelectedFile();
 			DeathMasterFile fMaster = new DeathMasterFile( fDeathMasterFile.getPath() );
+			MainForm.getDefault().setMasterFile(fDeathMasterFile.getPath());
 			try {
 				IDeathRecord drNext;
 				while (( drNext = fMaster.getNext()) != null) {
@@ -57,6 +58,7 @@ public class SSDIprogram {
 				    else
 				    	sOut += mMonthFormat.format(drNext.getDeathDate().getEnd()); 
 				    System.out.println( sOut );
+				    MainForm.getDefault().setCurrentRecord(sOut);
 				    ++iCount;
 				    if ( ( iCount % 100000 ) == 0 )
 				    	System.out.println( iCount );
