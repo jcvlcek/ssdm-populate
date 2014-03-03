@@ -32,4 +32,10 @@ public interface IDatabaseConnection {
 	 * @return the name of the database
 	 */
 	String getDatabaseName();
+	
+	/**
+	 * Get the name or IP address of the remote database host
+	 * @return a valid hostname or IP address
+	 */
+	String getHostname();
 }
