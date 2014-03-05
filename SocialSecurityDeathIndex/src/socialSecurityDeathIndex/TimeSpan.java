@@ -91,4 +91,40 @@ public class TimeSpan {
 	public long getDurationInSeconds() { return mDurationInSeconds; }
 	
 	public long getDurationInDays() { return mDurationInSeconds / SECONDS_PER_DAY; }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((mEnd == null) ? 0 : mEnd.hashCode());
+		result = prime * result + ((mStart == null) ? 0 : mStart.hashCode());
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TimeSpan other = (TimeSpan) obj;
+		if (mEnd == null) {
+			if (other.mEnd != null)
+				return false;
+		} else if (!mEnd.equals(other.mEnd))
+			return false;
+		if (mStart == null) {
+			if (other.mStart != null)
+				return false;
+		} else if (!mStart.equals(other.mStart))
+			return false;
+		return true;
+	}
 }

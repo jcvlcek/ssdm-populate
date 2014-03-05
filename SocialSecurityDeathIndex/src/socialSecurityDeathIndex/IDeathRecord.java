@@ -3,11 +3,13 @@
  */
 package socialSecurityDeathIndex;
 
+import java.io.Serializable;
+
 /**
  * @author vlcek
  *
  */
-public interface IDeathRecord {
+public interface IDeathRecord extends Serializable {
 	long getSSAN();
 	
 	String getGivenName();
