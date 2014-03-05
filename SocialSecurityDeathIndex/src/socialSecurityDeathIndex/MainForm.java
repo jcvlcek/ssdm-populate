@@ -69,7 +69,7 @@ public class MainForm {
 		
 		cmbDatabaseType = new Combo(grpDatabase, SWT.NONE);
 		cmbDatabaseType.setBounds(10, 20, 125, 29);
-		cmbDatabaseType.setItems(new String[] {"MySQL", "SQL Server"});
+		cmbDatabaseType.setItems(new String[] {"MySQL", "SQL Server", "Can of Beans"});
 		cmbDatabaseType.setToolTipText("Database type");
 		cmbDatabaseType.setText("MySQL");
 		

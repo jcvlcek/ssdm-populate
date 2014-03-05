@@ -26,9 +26,14 @@ public class SSDIprogram {
 	
 	public static void Connect( String sDatabaseType )
 	{
-		IDatabaseConnection conn = sDatabaseType.equals( "MySQL" ) ?
-				new MySqlDatabaseConnection() :
-				new SqlServerDatabaseConnection();
+		final IDatabaseConnection conn;
+		if ( sDatabaseType.equalsIgnoreCase("MySQL"))
+			conn = new MySqlDatabaseConnection();
+		else if ( sDatabaseType.equalsIgnoreCase("SQLServer") )
+			conn = new SqlServerDatabaseConnection();
+		else // if ( sDatabaseType.equalsIgnoreCase("Can of Beans"))
+			conn = new BeanDatabaseConnection();
+		// TODO Else we should actually throw an appropriate exception
 		try {
 			conn.Connect();
 		} catch (DbConnectionException e1) {
