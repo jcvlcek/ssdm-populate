@@ -19,6 +19,7 @@ public class MainForm {
 	private Label mlblFileName;
 	private Label mlblCurrentRecord;
 	private static MainForm mDefaultWindow;
+	private Text text;
 
 	/**
 	 * Launch the application.
@@ -87,9 +88,22 @@ public class MainForm {
 		btnConnect.setToolTipText("Connect to database");
 		btnConnect.setText("Connect...");
 		
+		Label lblQuerySsan = new Label(grpDatabase, SWT.NONE);
+		lblQuerySsan.setAlignment(SWT.RIGHT);
+		lblQuerySsan.setBounds(10, 78, 125, 21);
+		lblQuerySsan.setText("Query SSAN:");
+		
+		text = new Text(grpDatabase, SWT.BORDER);
+		text.setText("999-99-9999");
+		text.setBounds(141, 78, 100, 19);
+		
+		Button btnLookItUp = new Button(grpDatabase, SWT.NONE);
+		btnLookItUp.setBounds(247, 76, 91, 23);
+		btnLookItUp.setText("Look it up");
+		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
-		grpMasterFile.setBounds(10, 125, 428, 89);
+		grpMasterFile.setBounds(10, 125, 428, 109);
 		
 		Button btnOpen = new Button(grpMasterFile, SWT.NONE);
 		btnOpen.setBounds(10, 20, 91, 29);
@@ -112,6 +126,10 @@ public class MainForm {
 		
 		mlblCurrentRecord = new Label(grpMasterFile, SWT.NONE);
 		mlblCurrentRecord.setBounds(124, 62, 287, 17);
+		
+		Button chkAddItemsTo = new Button(grpMasterFile, SWT.CHECK);
+		chkAddItemsTo.setBounds(10, 85, 401, 16);
+		chkAddItemsTo.setText("Add items to database if they don't already exist");
 
 	}
 	

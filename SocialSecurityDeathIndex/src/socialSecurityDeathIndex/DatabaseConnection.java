@@ -24,11 +24,13 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
 	
 	private String mDatabaseName;
+	private String mHostname;
 
 	/**
 	 * Default constructor for the DatabaseConnection class
 	 */
 	public DatabaseConnection() {
+		mHostname = DEFAULT_DATABASE_HOST;
 		mDatabaseName = DEFAULT_DATABASE_NAME;
 	}
 	
@@ -107,11 +109,47 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 
 	}
 	
+	/**
+	 * Execute a database-specific connection
+	 * @param sPassword password for authentication to the database
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public abstract void ConnectToDatabase( String sPassword ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
 	
+	/**
+	 * Get the name of the database on the remote server
+	 */
 	public String getDatabaseName()
 	{
 		return mDatabaseName;
 	}
+	
+	/**
+	 * Set the name of the database on the remote server
+	 * @param sDatabase new name of the database
+	 */
+	protected void setDatabaseName( String sDatabase )
+	{
+		mDatabaseName = sDatabase;
+	}
 
+	/**
+	 * Get the name or IP address of the remote database server
+	 */
+	public String getHostname()
+	{
+		return mHostname;
+	}
+	
+	/**
+	 * Set the name or IP address of the remote database server
+	 * @param sHostname name or IP address of the remote database server
+	 */
+	protected void setHostname( String sHostname )
+	{
+		mHostname = sHostname;
+	}
 }

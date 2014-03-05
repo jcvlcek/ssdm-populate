@@ -35,5 +35,15 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
 		conn.close();
 	}
+	
+	public Boolean RecordExists( IDeathRecord drTarg )
+	{
+		return false;
+	}
+	
+	public IDeathRecord Match( long SSAN )
+	{
+		return null;
+	}
 
 }

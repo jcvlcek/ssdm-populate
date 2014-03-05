@@ -32,4 +32,26 @@ public interface IDatabaseConnection {
 	 * @return the name of the database
 	 */
 	String getDatabaseName();
+	
+	/**
+	 * Get the name or IP address of the remote database host
+	 * @return a valid hostname or IP address
+	 */
+	String getHostname();
+	
+	/**
+	 * Tests whether a specified record already exists in the database
+	 * @param drTarg The death record whose existence is to be tested
+	 * @return true if the database contains a death record
+	 * matching the SSAN of drTarg, otherwise false
+	 */
+	Boolean RecordExists( IDeathRecord drTarg );
+	
+	/**
+	 * Queries the database for a specified
+	 * social security account number
+	 * @param SSAN The SSAN to test for
+	 * @return the matching death record, if one exists, otherwise null
+	 */
+	IDeathRecord Match( long SSAN );
 }

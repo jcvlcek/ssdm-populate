@@ -36,5 +36,15 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		Connection conn = DriverManager.getConnection(url);
 		conn.close();
 	}
+	
+	public Boolean RecordExists( IDeathRecord drTarg )
+	{
+		return false;
+	}
+	
+	public IDeathRecord Match( long SSAN )
+	{
+		return null;
+	}
 
 }
