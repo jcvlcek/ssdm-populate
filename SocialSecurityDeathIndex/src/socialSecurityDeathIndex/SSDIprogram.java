@@ -47,6 +47,8 @@ public class SSDIprogram {
 			int iResult = fOpen.showOpenDialog(null);
 			if ( iResult == JFileChooser.APPROVE_OPTION)
 				fDeathMasterFile = fOpen.getSelectedFile();
+			else
+				return;
 			DeathMasterFile fMaster = new DeathMasterFile( fDeathMasterFile.getPath() );
 			MainForm.getDefault().setMasterFile(fDeathMasterFile.getPath());
 			try {
