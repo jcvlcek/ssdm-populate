@@ -54,4 +54,11 @@ public interface IDatabaseConnection {
 	 * @return the matching death record, if one exists, otherwise null
 	 */
 	IDeathRecord Match( long SSAN );
+	
+	/**
+	 * Add a new record to the database
+	 * @param drNew the new record to add
+	 * @throws DuplicateKeyException
+	 */
+	void AddRecord( IDeathRecord drNew ) throws DuplicateKeyException;
 }

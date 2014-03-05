@@ -4,6 +4,7 @@
 package socialSecurityDeathIndex;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  * @author Jim
@@ -11,6 +12,8 @@ import java.sql.SQLException;
  */
 public final class BeanDatabaseConnection extends DatabaseConnection {
 
+	private HashMap<Long, IDeathRecord> mRecords = new HashMap<Long, IDeathRecord>();
+	
 	/**
 	 * 
 	 */
@@ -23,8 +26,7 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 */
 	@Override
 	public Boolean RecordExists(IDeathRecord drTarg) {
-		// TODO Auto-generated method stub
-		return false;
+		return mRecords.containsKey(drTarg.getSSAN());
 	}
 
 	/* (non-Javadoc)
@@ -32,8 +34,7 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 */
 	@Override
 	public IDeathRecord Match(long SSAN) {
-		// TODO Auto-generated method stub
-		return null;
+		return mRecords.get(SSAN);
 	}
 
 	/* (non-Javadoc)
@@ -45,6 +46,16 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 			ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
+		// TODO Auto-generated method stub
+		if ( mRecords.containsKey( drNew.getSSAN()))
+			throw new DuplicateKeyException( "SSAN \"" + String.valueOf(drNew.getSSAN()) + "\" already exists in the database; can't add a new record" );
+		else
+			// TODO Make a copy of the death record before adding it to the map
+			mRecords.put(drNew.getSSAN(), drNew);
 	}
 
 }

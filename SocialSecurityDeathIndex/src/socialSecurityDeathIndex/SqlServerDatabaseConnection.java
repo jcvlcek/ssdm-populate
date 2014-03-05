@@ -47,4 +47,10 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		return null;
 	}
 
+	@Override
+	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("AddRecord not yet implemented for SqlServerDatabaseConnection class");
+	}
+
 }
