@@ -19,30 +19,30 @@ public class SSDIprogram {
 	
 	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
 	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
-
+	private static IDatabaseConnection mConnection = null;
+	
 	/**
 	 * @param args
 	 */
 	
 	public static void Connect( String sDatabaseType )
 	{
-		final IDatabaseConnection conn;
 		if ( sDatabaseType.equalsIgnoreCase("MySQL"))
-			conn = new MySqlDatabaseConnection();
+			mConnection = new MySqlDatabaseConnection();
 		else if ( sDatabaseType.equalsIgnoreCase("SQLServer") )
-			conn = new SqlServerDatabaseConnection();
+			mConnection = new SqlServerDatabaseConnection();
 		else // if ( sDatabaseType.equalsIgnoreCase("Can of Beans"))
-			conn = new BeanDatabaseConnection();
+			mConnection = new BeanDatabaseConnection();
 		// TODO Else we should actually throw an appropriate exception
 		try {
-			conn.Connect();
+			mConnection.Connect();
 		} catch (DbConnectionException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}		
 	}
 	
-	public static void LoadMasterFile() {	
+	public static void LoadMasterFile( Boolean bAddToDatabase ) {	
 		int iCount = 0;
 		try {
 			File fRootPath = new File( System.getProperty("user.dir") );
@@ -59,7 +59,9 @@ public class SSDIprogram {
 			try {
 				IDeathRecord drNext;
 				while (( drNext = fMaster.getNext()) != null) {
-				    String sOut = drNext.getGivenName() + " " + drNext.getSurname() + ": " + mDateFormat.format( drNext.getBirthDate().getStart() ) + " - ";
+					if ( bAddToDatabase )
+						mConnection.AddRecord(drNext);
+				    String sOut = String.valueOf( drNext.getSSAN() ) + " " + drNext.getGivenName() + " " + drNext.getSurname() + ": " + mDateFormat.format( drNext.getBirthDate().getStart() ) + " - ";
 				    if ( drNext.getDeathDate().getDurationInDays() <= 1 )
 				    	sOut += mDateFormat.format(drNext.getDeathDate().getEnd());
 				    else
@@ -72,6 +74,9 @@ public class SSDIprogram {
 				}
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
+			} catch (DuplicateKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} finally {
 				fMaster.Close();
 			}
@@ -82,5 +87,10 @@ public class SSDIprogram {
 		}
 		
 		JOptionPane.showMessageDialog(null, String.valueOf(iCount) + " total records read", "SSDM Import completed", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public static IDeathRecord MatchRecord( long lSSAN )
+	{
+		return mConnection.Match(lSSAN);
 	}
 }

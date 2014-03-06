@@ -1,5 +1,7 @@
 package socialSecurityDeathIndex;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -20,7 +22,8 @@ public class MainForm {
 	private Label mlblCurrentRecord;
 	private static MainForm mDefaultWindow;
 	private Text text;
-
+	Button mchkAddItems;
+	
 	/**
 	 * Launch the application.
 	 * @param args
@@ -98,6 +101,18 @@ public class MainForm {
 		text.setBounds(141, 78, 100, 19);
 		
 		Button btnLookItUp = new Button(grpDatabase, SWT.NONE);
+		btnLookItUp.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String SSAN = text.getText().replace("-", "").replace(" ", "");
+				long lSSAN = Long.parseLong(SSAN);
+				IDeathRecord drMatch = SSDIprogram.MatchRecord(lSSAN);
+				if ( drMatch != null )
+					JOptionPane.showMessageDialog(null, drMatch.getGivenName() + " " + drMatch.getSurname());
+				else
+					JOptionPane.showMessageDialog(null, "No match for SSAN " + String.valueOf( lSSAN ));
+			}
+		});
 		btnLookItUp.setBounds(247, 76, 91, 23);
 		btnLookItUp.setText("Look it up");
 		
@@ -110,7 +125,7 @@ public class MainForm {
 		btnOpen.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				SSDIprogram.LoadMasterFile();
+				SSDIprogram.LoadMasterFile( mchkAddItems.getSelection() );
 			}
 		});
 		btnOpen.setToolTipText("Open an SSDI Death Master File");
@@ -127,9 +142,9 @@ public class MainForm {
 		mlblCurrentRecord = new Label(grpMasterFile, SWT.NONE);
 		mlblCurrentRecord.setBounds(124, 62, 287, 17);
 		
-		Button chkAddItemsTo = new Button(grpMasterFile, SWT.CHECK);
-		chkAddItemsTo.setBounds(10, 85, 401, 16);
-		chkAddItemsTo.setText("Add items to database if they don't already exist");
+		mchkAddItems = new Button(grpMasterFile, SWT.CHECK);
+		mchkAddItems.setBounds(10, 85, 401, 16);
+		mchkAddItems.setText("Add items to database if they don't already exist");
 
 	}
 	
