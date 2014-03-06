@@ -65,7 +65,7 @@ public class MainForm {
 		
 		Group grpDatabase = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpDatabase.setText("Database");
-		grpDatabase.setBounds(10, 10, 428, 109);
+		grpDatabase.setBounds(10, 10, 428, 123);
 		
 		cmbDatabaseType = new Combo(grpDatabase, SWT.NONE);
 		cmbDatabaseType.setBounds(10, 20, 125, 29);
@@ -103,7 +103,7 @@ public class MainForm {
 		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
-		grpMasterFile.setBounds(10, 125, 428, 109);
+		grpMasterFile.setBounds(10, 139, 428, 129);
 		
 		Button btnOpen = new Button(grpMasterFile, SWT.NONE);
 		btnOpen.setBounds(10, 20, 91, 29);
