@@ -21,4 +21,5 @@ To test:
 * After loading the data, enter a SSAN from the text output in the Console window in the "Query SSAN:" text box
 * Click "Look it up" - you should get a message box with the name of the person in it
 * Now enter your own SSAN into the text and click "Look it up"
+<br>
 You should be told that no matching record was found.  If, instead, your own name appears, check your pulse immediately.
