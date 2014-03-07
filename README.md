@@ -6,7 +6,7 @@ This program will load the publicly-available Social Security Death Master file 
 It will also provide a limited amount of lookup capability, mainly for testing purposes.
 The goal is to set up a database allowing matching of death records, from other genealogical research sources, to the Social Security database.
 
-To build:
+To build:<br>
 Download the Standard Widget Toolkit and import the org.eclipse.swt project into Eclipse
 (Here's a FAQ on configuring SWT into Eclipse: https://wiki.eclipse.org/FAQ_How_do_I_configure_an_Eclipse_Java_project_to_use_SWT%3F)
 Download the JDBC connector for MySQL and install the compiled JAR into the lib/ folder.  Name the file mysql-connector-java-bin.jar.
