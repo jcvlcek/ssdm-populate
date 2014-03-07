@@ -15,10 +15,10 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	private HashMap<Long, IDeathRecord> mRecords = new HashMap<Long, IDeathRecord>();
 	
 	/**
-	 * 
+	 * Create a database consisting of plain old java objects
 	 */
 	public BeanDatabaseConnection() {
-		// TODO Auto-generated constructor stub
+		// Nothing to do here - yet, at least
 	}
 
 	/* (non-Javadoc)
@@ -44,18 +44,16 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	public void ConnectToDatabase(String sPassword)
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-
+		// Nothing to do here - yet, at least
 	}
 
 	@Override
-	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
-		// TODO Auto-generated method stub
-		if ( mRecords.containsKey( drNew.getSSAN()))
-			throw new DuplicateKeyException( "SSAN \"" + String.valueOf(drNew.getSSAN()) + "\" already exists in the database; can't add a new record" );
+	public void AddRecord(IDeathRecord drSrc) throws DuplicateKeyException {
+		long SSAN = drSrc.getSSAN();
+		if ( mRecords.containsKey( SSAN))
+			throw new DuplicateKeyException( "SSAN \"" + String.valueOf(SSAN) + "\" already exists in the database; can't add a new record" );
 		else
-			// TODO Make a copy of the death record before adding it to the map
-			mRecords.put(drNew.getSSAN(), drNew);
+			mRecords.put(SSAN, new DeathRecord( drSrc ));
 	}
 
 }

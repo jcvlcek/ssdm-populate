@@ -60,6 +60,20 @@ public class DeathRecord implements IDeathRecord {
 		mBirthDate = new TimeSpan();
 		mDeathDate = new TimeSpan();
 	}
+	
+	/**
+	 * Create a copy of an existing death record
+	 * @param drSrc the death record to copy
+	 */
+	public DeathRecord( IDeathRecord drSrc )
+	{
+		setSSAN( drSrc.getSSAN());
+		setGivenName( drSrc.getGivenName());
+		setMiddleName( drSrc.getMiddleName());
+		setSurname( drSrc.getSurname());
+		setBirthDate( drSrc.getBirthDate());
+		setDeathDate( drSrc.getDeathDate());
+	}
 
 	/**
 	 * 
