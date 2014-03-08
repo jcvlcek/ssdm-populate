@@ -67,7 +67,7 @@ public class SSDIprogram {
 				    else
 				    	sOut += mMonthFormat.format(drNext.getDeathDate().getEnd()); 
 				    System.out.println( sOut );
-				    MainForm.getDefault().setCurrentRecord(sOut);
+				    MainForm.getDefault().setCurrentRecord(drNext);
 				    ++iCount;
 				    if ( ( iCount % 100000 ) == 0 )
 				    	System.out.println( iCount );

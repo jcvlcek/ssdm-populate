@@ -12,8 +12,14 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.core.databinding.DataBindingContext;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.core.databinding.beans.PojoObservables;
+import org.eclipse.core.databinding.observable.Realm;
 
 public class MainForm {
+	private DataBindingContext m_bindingContext;
 
 	protected Shell shlSsdiDeathMaster;
 	private Text txtHostname;
@@ -23,18 +29,24 @@ public class MainForm {
 	private static MainForm mDefaultWindow;
 	private Text text;
 	Button mchkAddItems;
+	private IDeathRecord mCurrentRecord = new DeathRecord();
 	
 	/**
 	 * Launch the application.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		try {
-			mDefaultWindow = new MainForm();
-			mDefaultWindow.open();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Display display = Display.getDefault();
+		Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable() {
+			public void run() {
+				try {
+					mDefaultWindow = new MainForm();
+					mDefaultWindow.open();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	public static MainForm getDefault()
@@ -145,6 +157,7 @@ public class MainForm {
 		mchkAddItems = new Button(grpMasterFile, SWT.CHECK);
 		mchkAddItems.setBounds(10, 85, 401, 16);
 		mchkAddItems.setText("Add items to database if they don't already exist");
+		m_bindingContext = initDataBindings();
 
 	}
 	
@@ -153,8 +166,14 @@ public class MainForm {
 		mlblFileName.setText(sPath);
 	}
 	
-	public void setCurrentRecord( String sRecord )
+	public void setCurrentRecord( IDeathRecord drCurrent )
 	{
-		mlblCurrentRecord.setText(sRecord);
+		mlblCurrentRecord.setText(String.valueOf(drCurrent.getSSAN()));
+	}
+	
+	protected DataBindingContext initDataBindings() {
+		DataBindingContext bindingContext = new DataBindingContext();
+		//
+		return bindingContext;
 	}
 }
