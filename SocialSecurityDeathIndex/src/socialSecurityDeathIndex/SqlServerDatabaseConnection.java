@@ -26,15 +26,19 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void ConnectToDatabase( String sPassword ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
 		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
 		Class.forName(driver).newInstance();
-		Connection conn = DriverManager.getConnection(url);
-		conn.close();
+		String sPassword = GetPassword();
+		if ( sPassword != null )
+		{
+			Connection conn = DriverManager.getConnection(url);
+			conn.close();
+		}
 	}
 	
 	public Boolean RecordExists( IDeathRecord drTarg )

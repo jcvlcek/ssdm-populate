@@ -73,9 +73,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	@Override
 	public void Connect() throws DbConnectionException {
 		try {
-			String sPassword = GetPassword();
-			if ( sPassword != null )
-				ConnectToDatabase( sPassword );
+			ConnectToDatabase();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -117,7 +115,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public abstract void ConnectToDatabase( String sPassword ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	public abstract void ConnectToDatabase() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
 	
 	/**
 	 * Get the name of the database on the remote server
