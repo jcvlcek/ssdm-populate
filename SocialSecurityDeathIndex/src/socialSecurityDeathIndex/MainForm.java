@@ -29,6 +29,7 @@ public class MainForm {
 	private static MainForm mDefaultWindow;
 	private Text text;
 	Button mchkAddItems;
+	Button mbtnLookItUp;
 	private IDeathRecord mCurrentRecord = new DeathRecord();
 	
 	/**
@@ -98,6 +99,7 @@ public class MainForm {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				SSDIprogram.Connect( cmbDatabaseType.getText() );
+				mbtnLookItUp.setEnabled(true);
 			}
 		});
 		btnConnect.setToolTipText("Connect to database");
@@ -112,8 +114,9 @@ public class MainForm {
 		text.setText("999-99-9999");
 		text.setBounds(141, 78, 100, 19);
 		
-		Button btnLookItUp = new Button(grpDatabase, SWT.NONE);
-		btnLookItUp.addSelectionListener(new SelectionAdapter() {
+		mbtnLookItUp = new Button(grpDatabase, SWT.NONE);
+		mbtnLookItUp.setEnabled(false);
+		mbtnLookItUp.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				String SSAN = text.getText().replace("-", "").replace(" ", "");
@@ -125,8 +128,8 @@ public class MainForm {
 					JOptionPane.showMessageDialog(null, "No match for SSAN " + String.valueOf( lSSAN ));
 			}
 		});
-		btnLookItUp.setBounds(247, 76, 91, 23);
-		btnLookItUp.setText("Look it up");
+		mbtnLookItUp.setBounds(247, 76, 91, 23);
+		mbtnLookItUp.setText("Look it up");
 		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
