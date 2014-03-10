@@ -30,7 +30,7 @@ public class MainForm {
 	private Text text;
 	Button mchkAddItems;
 	Button mbtnLookItUp;
-	private IDeathRecord mCurrentRecord = new DeathRecord();
+	private SSDIprogram mModel = null;
 	
 	/**
 	 * Launch the application.
@@ -74,6 +74,8 @@ public class MainForm {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		mModel = SSDIprogram.Default();
+		
 		shlSsdiDeathMaster = new Shell();
 		shlSsdiDeathMaster.setToolTipText("Utility program for constructing and browsing a Social Security Death Master File database");
 		shlSsdiDeathMaster.setSize(450, 300);
@@ -98,7 +100,7 @@ public class MainForm {
 		btnConnect.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				SSDIprogram.Connect( cmbDatabaseType.getText() );
+				mModel.Connect( cmbDatabaseType.getText() );
 				mbtnLookItUp.setEnabled(true);
 			}
 		});
@@ -121,7 +123,7 @@ public class MainForm {
 			public void widgetSelected(SelectionEvent e) {
 				String SSAN = text.getText().replace("-", "").replace(" ", "");
 				long lSSAN = Long.parseLong(SSAN);
-				IDeathRecord drMatch = SSDIprogram.MatchRecord(lSSAN);
+				IDeathRecord drMatch = mModel.MatchRecord(lSSAN);
 				if ( drMatch != null )
 					JOptionPane.showMessageDialog(null, drMatch.getGivenName() + " " + drMatch.getSurname());
 				else
@@ -140,7 +142,7 @@ public class MainForm {
 		btnOpen.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				SSDIprogram.LoadMasterFile( mchkAddItems.getSelection() );
+				mModel.LoadMasterFile( mchkAddItems.getSelection() );
 			}
 		});
 		btnOpen.setToolTipText("Open an SSDI Death Master File");

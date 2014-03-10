@@ -6,6 +6,7 @@ package socialSecurityDeathIndex;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -15,17 +16,41 @@ import javax.swing.*;
  * @author vlcek
  *
  */
-public class SSDIprogram {
-	
-	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
-	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
-	private static IDatabaseConnection mConnection = null;
+public class SSDIprogram implements Serializable {
 	
 	/**
-	 * @param args
+	 * 
 	 */
+	private static final long serialVersionUID = 5655372400582167965L;
+	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
+	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
+	private IDatabaseConnection mConnection = null;
+	private static SSDIprogram mDefaultInstance = null;
 	
-	public static void Connect( String sDatabaseType )
+	/**
+	 * Default constructor made private; use a named constructor to obtain an instance
+	 */
+	private SSDIprogram()
+	{
+		// Nothing to do here, yet...
+	}
+	
+	/**
+	 * Named constructor for access to SSDI program singleton instance
+	 * @return the single, default instance of the SSDI program
+	 */
+	public static SSDIprogram Default()
+	{
+		if ( mDefaultInstance == null )
+			mDefaultInstance = new SSDIprogram();
+		return mDefaultInstance;
+	}
+	
+	/**
+	 * Connect to a database of the specified type
+	 * @param sDatabaseType type of database (MySQL, SqlServer, Beans, etc.) to connect 
+	 */
+	public void Connect( String sDatabaseType )
 	{
 		if ( sDatabaseType.equalsIgnoreCase("MySQL"))
 			mConnection = new MySqlDatabaseConnection();
@@ -42,7 +67,7 @@ public class SSDIprogram {
 		}		
 	}
 	
-	public static void LoadMasterFile( Boolean bAddToDatabase ) {	
+	public void LoadMasterFile( Boolean bAddToDatabase ) {	
 		int iCount = 0;
 		try {
 			File fRootPath = new File( System.getProperty("user.dir") );
@@ -89,7 +114,7 @@ public class SSDIprogram {
 		JOptionPane.showMessageDialog(null, String.valueOf(iCount) + " total records read", "SSDM Import completed", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public static IDeathRecord MatchRecord( long lSSAN )
+	public IDeathRecord MatchRecord( long lSSAN )
 	{
 		return mConnection.Match(lSSAN);
 	}
