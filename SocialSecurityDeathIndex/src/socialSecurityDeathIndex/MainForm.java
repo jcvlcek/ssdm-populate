@@ -17,6 +17,9 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.core.databinding.beans.PojoProperties;
+import org.eclipse.core.databinding.UpdateValueStrategy;
 
 public class MainForm {
 	private DataBindingContext m_bindingContext;
@@ -101,7 +104,7 @@ public class MainForm {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				mModel.Connect( cmbDatabaseType.getText() );
-				mbtnLookItUp.setEnabled(true);
+				// mbtnLookItUp.setEnabled(true);
 			}
 		});
 		btnConnect.setToolTipText("Connect to database");
@@ -175,9 +178,12 @@ public class MainForm {
 	{
 		mlblCurrentRecord.setText(String.valueOf(drCurrent.getSSAN()));
 	}
-	
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
+		//
+		IObservableValue observeEnabledMbtnLookItUpObserveWidget = WidgetProperties.enabled().observe(mbtnLookItUp);
+		IObservableValue isConnectedMModelObserveValue = PojoProperties.value("isConnected").observe(mModel);
+		bindingContext.bindValue(observeEnabledMbtnLookItUpObserveWidget, isConnectedMModelObserveValue, null, null);
 		//
 		return bindingContext;
 	}

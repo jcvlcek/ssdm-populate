@@ -11,6 +11,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 
 /**
  * @author vlcek
@@ -25,6 +28,7 @@ public class SSDIprogram implements Serializable {
 	private static final DateFormat mDateFormat = new SimpleDateFormat( "dd MMM yyyy" );
 	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
 	private IDatabaseConnection mConnection = null;
+	private Boolean mIsConnected = false;
 	private static SSDIprogram mDefaultInstance = null;
 	
 	/**
@@ -61,9 +65,11 @@ public class SSDIprogram implements Serializable {
 		// TODO Else we should actually throw an appropriate exception
 		try {
 			mConnection.Connect();
+			setIsConnected( true );
 		} catch (DbConnectionException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			setIsConnected( false );
 		}		
 	}
 	
@@ -118,4 +124,46 @@ public class SSDIprogram implements Serializable {
 	{
 		return mConnection.Match(lSSAN);
 	}
+	
+	public Boolean getIsConnected()
+	{
+		return mIsConnected;
+	}
+	
+	private void setIsConnected( Boolean value )
+	{
+		Boolean bOldValue = mIsConnected;
+		mIsConnected = value;
+		firePropertyChange("isConnected", bOldValue, value);
+	}
+	
+	private PropertyChangeSupport changeSupport = 
+			new PropertyChangeSupport(this);
+
+	public void addPropertyChangeListener(PropertyChangeListener 
+			listener) {
+		changeSupport.addPropertyChangeListener(listener);
+	}
+
+	public void removePropertyChangeListener(PropertyChangeListener 
+			listener) {
+		changeSupport.removePropertyChangeListener(listener);
+	}
+
+	public void addPropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		changeSupport.addPropertyChangeListener(propertyName, listener);
+	}
+
+	public void removePropertyChangeListener(String propertyName,
+			PropertyChangeListener listener) {
+		changeSupport.removePropertyChangeListener(propertyName, listener);
+	}
+
+	protected void firePropertyChange(String propertyName, 
+			Object oldValue,
+			Object newValue) {
+		changeSupport.firePropertyChange(propertyName, oldValue, newValue);
+	}
+
 }
