@@ -29,6 +29,7 @@ public class SSDIprogram implements Serializable {
 	private static final DateFormat mMonthFormat = new SimpleDateFormat( "MMM yyyy" );
 	private IDatabaseConnection mConnection = null;
 	private Boolean mIsConnected = false;
+	private Boolean mAddRecords = false;
 	private static SSDIprogram mDefaultInstance = null;
 	
 	/**
@@ -73,7 +74,7 @@ public class SSDIprogram implements Serializable {
 		}		
 	}
 	
-	public void LoadMasterFile( Boolean bAddToDatabase ) {	
+	public void LoadMasterFile( ) {	
 		int iCount = 0;
 		try {
 			File fRootPath = new File( System.getProperty("user.dir") );
@@ -90,7 +91,7 @@ public class SSDIprogram implements Serializable {
 			try {
 				IDeathRecord drNext;
 				while (( drNext = fMaster.getNext()) != null) {
-					if ( bAddToDatabase )
+					if ( getAddRecords() )
 						mConnection.AddRecord(drNext);
 				    String sOut = String.valueOf( drNext.getSSAN() ) + " " + drNext.getGivenName() + " " + drNext.getSurname() + ": " + mDateFormat.format( drNext.getBirthDate().getStart() ) + " - ";
 				    if ( drNext.getDeathDate().getDurationInDays() <= 1 )
@@ -130,11 +131,23 @@ public class SSDIprogram implements Serializable {
 		return mIsConnected;
 	}
 	
-	private void setIsConnected( Boolean value )
+	private void setIsConnected( Boolean isConnected )
 	{
 		Boolean bOldValue = mIsConnected;
-		mIsConnected = value;
-		firePropertyChange("isConnected", bOldValue, value);
+		mIsConnected = isConnected;
+		firePropertyChange("isConnected", bOldValue, isConnected);
+	}
+	
+	public Boolean getAddRecords()
+	{
+		return mAddRecords;
+	}
+	
+	public void setAddRecords( Boolean addRecords )
+	{
+		Boolean bOldValue = mAddRecords;
+		mAddRecords = addRecords;
+		firePropertyChange("addRecords", bOldValue, addRecords);
 	}
 	
 	private PropertyChangeSupport changeSupport = 

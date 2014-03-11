@@ -20,6 +20,8 @@ import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.core.databinding.beans.PojoProperties;
 import org.eclipse.core.databinding.UpdateValueStrategy;
+import org.eclipse.core.databinding.beans.BeanProperties;
+import org.eclipse.core.databinding.beans.BeansObservables;
 
 public class MainForm {
 	private DataBindingContext m_bindingContext;
@@ -145,7 +147,7 @@ public class MainForm {
 		btnOpen.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				mModel.LoadMasterFile( mchkAddItems.getSelection() );
+				mModel.LoadMasterFile( );
 			}
 		});
 		btnOpen.setToolTipText("Open an SSDI Death Master File");
@@ -182,8 +184,12 @@ public class MainForm {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
 		IObservableValue observeEnabledMbtnLookItUpObserveWidget = WidgetProperties.enabled().observe(mbtnLookItUp);
-		IObservableValue isConnectedMModelObserveValue = PojoProperties.value("isConnected").observe(mModel);
+		IObservableValue isConnectedMModelObserveValue = BeanProperties.value("isConnected").observe(mModel);
 		bindingContext.bindValue(observeEnabledMbtnLookItUpObserveWidget, isConnectedMModelObserveValue, null, null);
+		//
+		IObservableValue mchkAddItemsObserveSelectionObserveWidget = SWTObservables.observeSelection(mchkAddItems);
+		IObservableValue mModelAddRecordsObserveValue = BeansObservables.observeValue(mModel, "addRecords");
+		bindingContext.bindValue(mchkAddItemsObserveSelectionObserveWidget, mModelAddRecordsObserveValue, null, null);
 		//
 		return bindingContext;
 	}
