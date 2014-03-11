@@ -88,6 +88,16 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			e.printStackTrace();
 		}
 	}
+	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#Connect(java.lang.Integer)
+	 */
+	@Override
+	public void Connect( int iPort )
+			throws DbConnectionException {
+		// TODO Implement the specified-port Connect method
+		Connect();
+	}
 
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDatabaseConnection#Connect(java.lang.String, java.lang.String)

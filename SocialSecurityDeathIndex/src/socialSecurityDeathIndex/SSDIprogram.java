@@ -30,6 +30,7 @@ public class SSDIprogram implements Serializable {
 	private IDatabaseConnection mConnection = null;
 	private Boolean mIsConnected = false;
 	private Boolean mAddRecords = false;
+	private int mDatabasePort = 0;
 	private static SSDIprogram mDefaultInstance = null;
 	
 	/**
@@ -65,10 +66,9 @@ public class SSDIprogram implements Serializable {
 			mConnection = new BeanDatabaseConnection();
 		// TODO Else we should actually throw an appropriate exception
 		try {
-			mConnection.Connect();
+			mConnection.Connect( getDatabasePort() );
 			setIsConnected( true );
 		} catch (DbConnectionException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 			setIsConnected( false );
 		}		
@@ -148,6 +148,18 @@ public class SSDIprogram implements Serializable {
 		Boolean bOldValue = mAddRecords;
 		mAddRecords = addRecords;
 		firePropertyChange("addRecords", bOldValue, addRecords);
+	}
+	
+	public int getDatabasePort()
+	{
+		return mDatabasePort;
+	}
+	
+	public void setDatabasePort( int databasePort )
+	{
+		int iOldValue = mDatabasePort;
+		mDatabasePort = databasePort;
+		firePropertyChange("databasePort", iOldValue, databasePort);
 	}
 	
 	private PropertyChangeSupport changeSupport = 

@@ -36,6 +36,7 @@ public class MainForm {
 	Button mchkAddItems;
 	Button mbtnLookItUp;
 	private SSDIprogram mModel = null;
+	private Text txtPort;
 	
 	/**
 	 * Launch the application.
@@ -101,7 +102,7 @@ public class MainForm {
 		txtHostname.setText("localhost");
 		
 		Button btnConnect = new Button(grpDatabase, SWT.NONE);
-		btnConnect.setBounds(247, 20, 91, 29);
+		btnConnect.setBounds(327, 15, 91, 29);
 		btnConnect.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
@@ -137,6 +138,9 @@ public class MainForm {
 		});
 		mbtnLookItUp.setBounds(247, 76, 91, 23);
 		mbtnLookItUp.setText("Look it up");
+		
+		txtPort = new Text(grpDatabase, SWT.BORDER);
+		txtPort.setBounds(245, 22, 76, 27);
 		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
@@ -190,6 +194,10 @@ public class MainForm {
 		IObservableValue mchkAddItemsObserveSelectionObserveWidget = SWTObservables.observeSelection(mchkAddItems);
 		IObservableValue mModelAddRecordsObserveValue = BeansObservables.observeValue(mModel, "addRecords");
 		bindingContext.bindValue(mchkAddItemsObserveSelectionObserveWidget, mModelAddRecordsObserveValue, null, null);
+		//
+		IObservableValue observeTextTxtPortObserveWidget = WidgetProperties.text(SWT.Modify).observe(txtPort);
+		IObservableValue databasePortMModelObserveValue = BeanProperties.value("databasePort").observe(mModel);
+		bindingContext.bindValue(observeTextTxtPortObserveWidget, databasePortMModelObserveValue, null, null);
 		//
 		return bindingContext;
 	}

@@ -15,6 +15,13 @@ public interface IDatabaseConnection {
 	void Connect() throws DbConnectionException;
 	
 	/**
+	 * Connect to the default database host at a specified port
+	 * @param iPort the TCP port to connect
+	 * @throws DbConnectionException
+	 */
+	void Connect( int iPort ) throws DbConnectionException;
+	
+	/**
 	 * Connect to a specific database on a remote host
 	 * @param Hostname the remote database host (server)
 	 * @param database the name of the database on the remote host (server)
