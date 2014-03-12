@@ -30,7 +30,7 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
-		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
+		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
 		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
