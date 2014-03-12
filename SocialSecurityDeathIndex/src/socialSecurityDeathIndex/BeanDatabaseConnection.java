@@ -41,7 +41,7 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 * @see socialSecurityDeathIndex.DatabaseConnection#ConnectToDatabase(java.lang.String)
 	 */
 	@Override
-	public void ConnectToDatabase()
+	public void ConnectToDatabase( int iPort )
 			throws InstantiationException, IllegalAccessException,
 			ClassNotFoundException, SQLException {
 		// Nothing to do here - yet, at least

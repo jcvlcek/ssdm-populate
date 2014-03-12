@@ -25,9 +25,11 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void ConnectToDatabase( ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
-		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( DEFAULT_PORT ) + "/";
+		if ( iPort == 0 )
+			iPort = DEFAULT_PORT;
+		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + "/";
 		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;

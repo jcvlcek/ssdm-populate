@@ -26,8 +26,10 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void ConnectToDatabase() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase(int iPort) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
+		if ( iPort == 0 )
+			iPort = DEFAULT_PORT;
 		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
 		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;

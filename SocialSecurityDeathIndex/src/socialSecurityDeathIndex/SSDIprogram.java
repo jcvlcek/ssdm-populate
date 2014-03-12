@@ -60,7 +60,7 @@ public class SSDIprogram implements Serializable {
 	{
 		if ( sDatabaseType.equalsIgnoreCase("MySQL"))
 			mConnection = new MySqlDatabaseConnection();
-		else if ( sDatabaseType.equalsIgnoreCase("SQLServer") )
+		else if ( sDatabaseType.equalsIgnoreCase("SQL Server") )
 			mConnection = new SqlServerDatabaseConnection();
 		else // if ( sDatabaseType.equalsIgnoreCase("Can of Beans"))
 			mConnection = new BeanDatabaseConnection();

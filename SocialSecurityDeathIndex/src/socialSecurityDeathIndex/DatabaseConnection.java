@@ -25,6 +25,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	private String mDatabaseName;
 	private String mHostname;
+	private int mPort;
 
 	/**
 	 * Default constructor for the DatabaseConnection class
@@ -32,6 +33,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public DatabaseConnection() {
 		mHostname = DEFAULT_DATABASE_HOST;
 		mDatabaseName = DEFAULT_DATABASE_NAME;
+		mPort = 0;
 	}
 	
 	/**
@@ -73,7 +75,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	@Override
 	public void Connect() throws DbConnectionException {
 		try {
-			ConnectToDatabase();
+			ConnectToDatabase( mPort );
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -95,7 +97,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	@Override
 	public void Connect( int iPort )
 			throws DbConnectionException {
-		// TODO Implement the specified-port Connect method
+		mPort = iPort;
 		Connect();
 	}
 
@@ -119,13 +121,13 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	/**
 	 * Execute a database-specific connection
-	 * @param sPassword password for authentication to the database
+	 * @param iPort TCP port to connect to
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public abstract void ConnectToDatabase() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	public abstract void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
 	
 	/**
 	 * Get the name of the database on the remote server
@@ -159,5 +161,23 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	protected void setHostname( String sHostname )
 	{
 		mHostname = sHostname;
+	}
+	
+	/**
+	 * Get the TCP port the database is listening on
+	 * @return
+	 */
+	public int getPort()
+	{
+		return mPort;
+	}
+	
+	/**
+	 * Set the TCP port the databse is expected to listen on
+	 * @param iPort the database's TCP port
+	 */
+	protected void setPort( int iPort )
+	{
+		mPort = iPort;
 	}
 }
