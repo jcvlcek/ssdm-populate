@@ -37,6 +37,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		String sPassword = GetPassword();
 		if ( sPassword != null )
 		{
+			user = getUsername();
 			Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
 			conn.close();
 		}

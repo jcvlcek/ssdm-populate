@@ -25,6 +25,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	private String mDatabaseName;
 	private String mHostname;
+	private String mUsername;
 	private int mPort;
 
 	/**
@@ -40,7 +41,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * Prompt the user to supply a username and password for the database
 	 * @return the user-supplied password for the database (null if the user cancels the operation)
 	 */
-	public static String GetPassword()
+	public String GetPassword()
 	{
 		//Using a JPanel as the message for the JOptionPane
 		JPanel userPanel = new JPanel();
@@ -64,7 +65,10 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		                         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
 		                         null, options, options[0]);
 		if (option == JOptionPane.OK_OPTION) // pressing OK button
+		{
+			setUsername( username.getText() );
 		    return new String( fldPassword.getPassword() );
+		}
 		else
 			return null;
 	}
@@ -173,11 +177,29 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	}
 	
 	/**
-	 * Set the TCP port the databse is expected to listen on
+	 * Set the TCP port the database is expected to listen on
 	 * @param iPort the database's TCP port
 	 */
 	protected void setPort( int iPort )
 	{
 		mPort = iPort;
+	}
+	
+	/**
+	 * Get the user name used for authenticating to the database
+	 * @return
+	 */
+	public String getUsername()
+	{
+		return mUsername;
+	}
+	
+	/**
+	 * Set the user name to be used for authenticating to the database
+	 * @param sUsername
+	 */
+	protected void setUsername( String sUsername )
+	{
+		mUsername = sUsername;
 	}
 }
