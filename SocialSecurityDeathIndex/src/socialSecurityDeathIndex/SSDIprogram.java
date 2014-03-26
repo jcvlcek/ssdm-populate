@@ -74,6 +74,12 @@ public class SSDIprogram implements Serializable {
 		}		
 	}
 	
+	public void Disconnect()
+	{
+		if ( mConnection != null )
+			mConnection.Disconnect();
+	}
+	
 	public void LoadMasterFile( ) {	
 		int iCount = 0;
 		try {
