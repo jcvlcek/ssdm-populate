@@ -7,6 +7,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
@@ -173,6 +175,13 @@ public class MainForm {
 		mchkAddItems.setText("Add items to database if they don't already exist");
 		m_bindingContext = initDataBindings();
 
+		shlSsdiDeathMaster.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent event) 
+			{ 
+				if ( mModel != null )
+					mModel.Disconnect();
+			} 
+		} );
 	}
 	
 	public void setMasterFile( String sPath )
