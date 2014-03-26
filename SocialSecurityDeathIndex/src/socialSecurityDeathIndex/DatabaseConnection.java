@@ -41,7 +41,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * Prompt the user to supply a username and password for the database
 	 * @return the user-supplied password for the database (null if the user cancels the operation)
 	 */
-	public String GetPassword()
+	public String GetPassword( String sDefaultUser )
 	{
 		//Using a JPanel as the message for the JOptionPane
 		JPanel userPanel = new JPanel();
@@ -52,6 +52,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		JLabel lblPassword = new JLabel("Password:");
 
 		JTextField username = new JTextField();
+		username.setText(sDefaultUser);
 		JPasswordField fldPassword = new JPasswordField();
 
 		//Add the components to the JPanel        

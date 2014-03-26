@@ -30,14 +30,13 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
 		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + "/";
-		String user = DEFAULT_DATABASE_USER;
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
 		Class.forName(driver).newInstance();
-		String sPassword = GetPassword();
+		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( sPassword != null )
 		{
-			user = getUsername();
+			String user = getUsername();
 			Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
 			conn.close();
 		}
