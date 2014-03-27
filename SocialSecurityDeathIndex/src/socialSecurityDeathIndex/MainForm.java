@@ -39,6 +39,7 @@ public class MainForm {
 	Button mbtnLookItUp;
 	private SSDIprogram mModel = null;
 	private Text txtPort;
+	private Button btnDisconnect;
 	
 	/**
 	 * Launch the application.
@@ -144,6 +145,18 @@ public class MainForm {
 		txtPort = new Text(grpDatabase, SWT.BORDER);
 		txtPort.setBounds(245, 22, 76, 27);
 		
+		btnDisconnect = new Button(grpDatabase, SWT.NONE);
+		btnDisconnect.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if ( mModel != null )
+					mModel.Disconnect();
+			}
+		});
+		btnDisconnect.setToolTipText("Disconnect from database");
+		btnDisconnect.setText("Disconnect");
+		btnDisconnect.setBounds(327, 41, 91, 29);
+		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
 		grpMasterFile.setBounds(10, 139, 428, 129);
@@ -207,6 +220,9 @@ public class MainForm {
 		IObservableValue observeTextTxtPortObserveWidget = WidgetProperties.text(SWT.Modify).observe(txtPort);
 		IObservableValue databasePortMModelObserveValue = BeanProperties.value("databasePort").observe(mModel);
 		bindingContext.bindValue(observeTextTxtPortObserveWidget, databasePortMModelObserveValue, null, null);
+		//
+		IObservableValue observeEnabledBtnDisconnectObserveWidget = WidgetProperties.enabled().observe(btnDisconnect);
+		bindingContext.bindValue(observeEnabledBtnDisconnectObserveWidget, isConnectedMModelObserveValue, null, null);
 		//
 		return bindingContext;
 	}
