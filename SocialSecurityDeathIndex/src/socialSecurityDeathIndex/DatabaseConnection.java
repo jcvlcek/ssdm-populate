@@ -4,6 +4,7 @@
 package socialSecurityDeathIndex;
 
 import java.awt.GridLayout;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.swing.JLabel;
@@ -27,6 +28,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	private String mHostname;
 	private String mUsername;
 	private int mPort;
+
+	protected Connection mConnection = null;
 
 	/**
 	 * Default constructor for the DatabaseConnection class
@@ -119,9 +122,19 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * @see socialSecurityDeathIndex.IDatabaseConnection#Disconnect()
 	 */
 	@Override
-	public void Disconnect() {
-		// TODO Auto-generated method stub
-
+	public void Disconnect()
+	{
+		if ( mConnection != null )
+		{
+			try {
+				mConnection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				mConnection = null;		
+			}
+		}
 	}
 	
 	/**

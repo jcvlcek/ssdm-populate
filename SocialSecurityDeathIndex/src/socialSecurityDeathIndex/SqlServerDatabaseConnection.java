@@ -38,8 +38,7 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 			String user = getUsername();
 			// String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";user=" + user + ";password=" + sPassword + ";";
 			String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
-			Connection conn = DriverManager.getConnection(url);
-			conn.close();
+			mConnection = DriverManager.getConnection(url);
 		}
 	}
 	

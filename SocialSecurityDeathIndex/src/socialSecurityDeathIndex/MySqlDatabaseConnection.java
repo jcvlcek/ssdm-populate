@@ -17,7 +17,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	public static final String DEFAULT_DATABASE_USER = "root";
 	public static final String DEFAULT_URL_BASE = "jdbc:mysql://";
 	public static final String DEFAULT_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
-
+	
 	/**
 	 * 
 	 */
@@ -37,8 +37,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		if ( sPassword != null )
 		{
 			String user = getUsername();
-			Connection conn = DriverManager.getConnection(url + dbName, user, sPassword);
-			conn.close();
+			mConnection = DriverManager.getConnection(url + dbName, user, sPassword);
 		}
 	}
 	
@@ -57,5 +56,4 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("AddRecord not yet implemented for MySqlDatabaseConnection class");
 	}
-
 }
