@@ -26,6 +26,11 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	public static final String LAST_NAME_COLUMN = "LASTNAME";
 	public static final String FIRST_NAME_COLUMN = "FIRSTNAME";
+	public static final String MIDDLE_NAME_COLUMN = "MIDDLENAME";
+	public static final String EARLIEST_BIRTH_DATE_COLUMN = "BIRTHBEGIN";
+	public static final String LATEST_BIRTH_DATE_COLUMN = "BIRTHEND";
+	public static final String EARLIEST_DEATH_DATE_COLUMN = "DEATHBEGIN";
+	public static final String LATEST_DEATH_DATE_COLUMN = "DEATHEND";
 	public static final String SSAN_COLUMN = "SSAN";
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
@@ -225,31 +230,41 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 
 	@Override
 	public Boolean RecordExists(IDeathRecord drTarg) {
+		return Match( drTarg.getSSAN()) != null;
+	}
+
+	@Override
+	public IDeathRecord Match(long SSAN) {
 		Statement stmt = null;
 		ResultSet rs = null;
-		boolean bResult = false;
 		
 		try {
 			stmt = mConnection.createStatement();
-			String query = "select " + LAST_NAME_COLUMN + ", " + FIRST_NAME_COLUMN +
-					" from RECORDS where " + SSAN_COLUMN + " = " + String.valueOf( drTarg.getSSAN() );
+			String query = "select * from RECORDS where " + SSAN_COLUMN + " = " + String.valueOf( SSAN );
 			rs = stmt.executeQuery(query);
-			bResult = rs.next();
+			boolean bResult = rs.next();
+			if ( !bResult )
+				return null;
+			DeathRecord drNew = new DeathRecord();
+			drNew.setSSAN(SSAN);
+			drNew.setSurname(rs.getString(LAST_NAME_COLUMN));
+			drNew.setGivenName(rs.getString(FIRST_NAME_COLUMN));
+			drNew.setMiddleName(rs.getString(MIDDLE_NAME_COLUMN));
+			drNew.setBirthDate(new TimeSpan( rs.getDate(EARLIEST_BIRTH_DATE_COLUMN), rs.getDate(LATEST_BIRTH_DATE_COLUMN)));
+			drNew.setDeathDate(new TimeSpan( rs.getDate(EARLIEST_DEATH_DATE_COLUMN), rs.getDate(LATEST_DEATH_DATE_COLUMN)));
+			// TODO Specify the exception in the interface and implemented classes
+//			if ( rs.next() )
+//				throw new DuplicateKeyException("More than one record for SSAN " + String.valueOf( SSAN ) );
+			return drNew;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO Should we just re-throw the SQLException?
 			e.printStackTrace();
+			return null;
 		}
 		finally {
 			try { rs.close(); } catch (SQLException e) {}
 			try { stmt.close(); } catch (SQLException e) {} 
 		}
-		return bResult;
-	}
-
-	@Override
-	public IDeathRecord Match(long SSAN) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

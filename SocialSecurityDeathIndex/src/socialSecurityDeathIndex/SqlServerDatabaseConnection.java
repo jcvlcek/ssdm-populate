@@ -42,15 +42,15 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		}
 	}
 	
-	public Boolean RecordExists( IDeathRecord drTarg )
-	{
-		return false;
-	}
-	
-	public IDeathRecord Match( long SSAN )
-	{
-		return null;
-	}
+//	public Boolean RecordExists( IDeathRecord drTarg )
+//	{
+//		return false;
+//	}
+//	
+//	public IDeathRecord Match( long SSAN )
+//	{
+//		return null;
+//	}
 
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
