@@ -5,7 +5,9 @@ package socialSecurityDeathIndex;
 
 import java.awt.GridLayout;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +23,10 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 
 	public static final String DEFAULT_DATABASE_HOST = "localhost";
 	public static final String DEFAULT_DATABASE_NAME = "SSDI";
+	
+	public static final String LAST_NAME_COLUMN = "LASTNAME";
+	public static final String FIRST_NAME_COLUMN = "FIRSTNAME";
+	public static final String SSAN_COLUMN = "SSAN";
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
 	
@@ -215,5 +221,39 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	protected void setUsername( String sUsername )
 	{
 		mUsername = sUsername;
+	}
+
+	@Override
+	public Boolean RecordExists(IDeathRecord drTarg) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		boolean bResult = false;
+		
+		try {
+			stmt = mConnection.createStatement();
+			String query = "select " + LAST_NAME_COLUMN + ", " + FIRST_NAME_COLUMN +
+					" from RECORDS where " + SSAN_COLUMN + " = " + String.valueOf( drTarg.getSSAN() );
+			rs = stmt.executeQuery(query);
+			bResult = rs.next();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try { rs.close(); } catch (SQLException e) {}
+			try { stmt.close(); } catch (SQLException e) {} 
+		}
+		return bResult;
+	}
+
+	@Override
+	public IDeathRecord Match(long SSAN) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
+		// TODO Auto-generated method stub
 	}
 }
