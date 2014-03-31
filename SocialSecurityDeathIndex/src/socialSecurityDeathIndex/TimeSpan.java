@@ -83,6 +83,13 @@ public class TimeSpan {
 		mStart = mEnd = cal.getTime();
 		mDurationInSeconds = 0;
 	}
+	
+	public TimeSpan( Date start, Date end )
+	{
+		mStart = start; mEnd = end;
+		// TODO Calculate duration in seconds for this constructor
+		// mDurationInSeconds = ( end - start ).
+	}
 
 	public Date getStart() { return mStart; }
 	
