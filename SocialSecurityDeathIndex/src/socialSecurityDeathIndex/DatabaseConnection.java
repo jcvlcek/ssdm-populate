@@ -269,6 +269,23 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
-		// TODO Auto-generated method stub
+		Statement stmt = null;
+		
+		try {
+			stmt = mConnection.createStatement();
+			String sql = "INSERT INTO RECORDS VALUES(" +
+					String.valueOf( drNew.getSSAN() ) + "," +
+					"'" + drNew.getSurname() + "', " +
+					"'" + drNew.getGivenName() + "', " +
+					"'" + drNew.getMiddleName() + "'" +
+					")";
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try { stmt.close(); } catch (SQLException e) {}
+		}
 	}
 }
