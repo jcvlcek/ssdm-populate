@@ -250,8 +250,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			drNew.setSurname(rs.getString(LAST_NAME_COLUMN));
 			drNew.setGivenName(rs.getString(FIRST_NAME_COLUMN));
 			drNew.setMiddleName(rs.getString(MIDDLE_NAME_COLUMN));
-			drNew.setBirthDate(new TimeSpan( rs.getDate(EARLIEST_BIRTH_DATE_COLUMN), rs.getDate(LATEST_BIRTH_DATE_COLUMN)));
-			drNew.setDeathDate(new TimeSpan( rs.getDate(EARLIEST_DEATH_DATE_COLUMN), rs.getDate(LATEST_DEATH_DATE_COLUMN)));
+//			drNew.setBirthDate(new TimeSpan( rs.getDate(EARLIEST_BIRTH_DATE_COLUMN), rs.getDate(LATEST_BIRTH_DATE_COLUMN)));
+//			drNew.setDeathDate(new TimeSpan( rs.getDate(EARLIEST_DEATH_DATE_COLUMN), rs.getDate(LATEST_DEATH_DATE_COLUMN)));
 			// TODO Specify the exception in the interface and implemented classes
 //			if ( rs.next() )
 //				throw new DuplicateKeyException("More than one record for SSAN " + String.valueOf( SSAN ) );
