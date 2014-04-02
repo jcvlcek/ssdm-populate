@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -34,7 +36,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public static final String SSAN_COLUMN = "SSAN";
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
-	
+	private static final DateFormat mDateFormat = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss" );
+
 	private String mDatabaseName;
 	private String mHostname;
 	private String mUsername;
@@ -250,8 +253,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			drNew.setSurname(rs.getString(LAST_NAME_COLUMN));
 			drNew.setGivenName(rs.getString(FIRST_NAME_COLUMN));
 			drNew.setMiddleName(rs.getString(MIDDLE_NAME_COLUMN));
-//			drNew.setBirthDate(new TimeSpan( rs.getDate(EARLIEST_BIRTH_DATE_COLUMN), rs.getDate(LATEST_BIRTH_DATE_COLUMN)));
-//			drNew.setDeathDate(new TimeSpan( rs.getDate(EARLIEST_DEATH_DATE_COLUMN), rs.getDate(LATEST_DEATH_DATE_COLUMN)));
+			drNew.setBirthDate(new TimeSpan( rs.getDate(EARLIEST_BIRTH_DATE_COLUMN), rs.getDate(LATEST_BIRTH_DATE_COLUMN)));
+			drNew.setDeathDate(new TimeSpan( rs.getDate(EARLIEST_DEATH_DATE_COLUMN), rs.getDate(LATEST_DEATH_DATE_COLUMN)));
 			// TODO Specify the exception in the interface and implemented classes
 //			if ( rs.next() )
 //				throw new DuplicateKeyException("More than one record for SSAN " + String.valueOf( SSAN ) );
@@ -277,7 +280,11 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 					String.valueOf( drNew.getSSAN() ) + "," +
 					"'" + drNew.getSurname() + "', " +
 					"'" + drNew.getGivenName() + "', " +
-					"'" + drNew.getMiddleName() + "'" +
+					"'" + drNew.getMiddleName() + "', " +
+					"'" + mDateFormat.format(drNew.getBirthDate().getStart()) + "', " +
+					"'" + mDateFormat.format(drNew.getBirthDate().getEnd()) + "', " +
+					"'" + mDateFormat.format(drNew.getDeathDate().getStart()) + "', " +
+					"'" + mDateFormat.format(drNew.getDeathDate().getEnd()) + "'" +
 					")";
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {

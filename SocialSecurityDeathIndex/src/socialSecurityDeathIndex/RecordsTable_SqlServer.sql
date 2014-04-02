@@ -1,7 +1,7 @@
 USE [SSDI]
 GO
 
-/****** Object:  Table [dbo].[RECORDS]    Script Date: 04/01/2014 21:29:21 ******/
+/****** Object:  Table [dbo].[RECORDS]    Script Date: 04/02/2014 13:36:31 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -16,6 +16,10 @@ CREATE TABLE [dbo].[RECORDS](
 	[LASTNAME] [varchar](50) NOT NULL,
 	[FIRSTNAME] [varchar](50) NOT NULL,
 	[MIDDLENAME] [varchar](50) NOT NULL,
+	[BIRTHBEGIN] [datetime2](7) NOT NULL,
+	[BIRTHEND] [datetime2](7) NOT NULL,
+	[DEATHBEGIN] [datetime2](7) NOT NULL,
+	[DEATHEND] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_RECORDS] PRIMARY KEY CLUSTERED 
 (
 	[SSAN] ASC
