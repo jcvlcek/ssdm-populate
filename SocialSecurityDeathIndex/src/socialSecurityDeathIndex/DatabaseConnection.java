@@ -36,7 +36,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	public static final String SSAN_COLUMN = "SSAN";
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
-	private static final DateFormat mDateFormat = new SimpleDateFormat( "yyyy-MM-dd hh:mm:ss" );
+	private static final DateFormat mDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
 
 	private String mDatabaseName;
 	private String mHostname;
