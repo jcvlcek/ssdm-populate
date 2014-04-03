@@ -40,20 +40,9 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 			mConnection = DriverManager.getConnection(url + dbName, user, sPassword);
 		}
 	}
-	
-	public Boolean RecordExists( IDeathRecord drTarg )
-	{
-		return false;
-	}
-	
-	public IDeathRecord Match( long SSAN )
-	{
-		return null;
-	}
 
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("AddRecord not yet implemented for MySqlDatabaseConnection class");
+		super.AddRecord(drNew);
 	}
 }

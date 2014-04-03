@@ -41,16 +41,6 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 			mConnection = DriverManager.getConnection(url);
 		}
 	}
-	
-//	public Boolean RecordExists( IDeathRecord drTarg )
-//	{
-//		return false;
-//	}
-//	
-//	public IDeathRecord Match( long SSAN )
-//	{
-//		return null;
-//	}
 
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
