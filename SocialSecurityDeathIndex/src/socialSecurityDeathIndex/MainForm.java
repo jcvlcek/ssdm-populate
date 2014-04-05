@@ -109,7 +109,7 @@ public class MainForm {
 		btnConnect.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				mModel.Connect( cmbDatabaseType.getText() );
+				mModel.Connect( );
 				// mbtnLookItUp.setEnabled(true);
 			}
 		});

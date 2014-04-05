@@ -31,7 +31,7 @@ public class SSDIprogram implements Serializable {
 	private Boolean mIsConnected = false;
 	private Boolean mAddRecords = false;
 	private int mDatabasePort = 0;
-	private String mDatabaseType = MySqlDatabaseConnection.SPONSOR;
+	private String mDatabaseType = BeanDatabaseConnection.SPONSOR;
 	private static SSDIprogram mDefaultInstance = null;
 	
 	/**
@@ -54,11 +54,11 @@ public class SSDIprogram implements Serializable {
 	}
 	
 	/**
-	 * Connect to a database of the specified type
-	 * @param sDatabaseType type of database (MySQL, SqlServer, Beans, etc.) to connect 
+	 * Connect to a database of the currently-selected type ("Sponsor")
 	 */
-	public void Connect( String sDatabaseType )
+	public void Connect( )
 	{
+		String sDatabaseType = getDatabaseType();
 		if ( sDatabaseType.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
 			mConnection = new MySqlDatabaseConnection();
 		else if ( sDatabaseType.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
@@ -180,6 +180,15 @@ public class SSDIprogram implements Serializable {
 		String sOldValue = mDatabaseType;
 		mDatabaseType = databaseType; 
 		firePropertyChange("databaseType", sOldValue, databaseType);
+		
+		// TODO - Use Reflection to get rid of this switch-statement polymorphism
+		if ( databaseType.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
+			setDatabasePort( MySqlDatabaseConnection.DEFAULT_PORT );
+		else if ( databaseType.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
+			setDatabasePort( SqlServerDatabaseConnection.DEFAULT_PORT );
+		else // if ( sDatabaseType.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
+			setDatabasePort( 0 );
+		// TODO Else we should actually throw an appropriate exception
 	}
 	
 	private PropertyChangeSupport changeSupport = 
