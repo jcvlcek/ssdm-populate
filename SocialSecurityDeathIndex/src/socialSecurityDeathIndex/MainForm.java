@@ -224,6 +224,10 @@ public class MainForm {
 		IObservableValue observeEnabledBtnDisconnectObserveWidget = WidgetProperties.enabled().observe(btnDisconnect);
 		bindingContext.bindValue(observeEnabledBtnDisconnectObserveWidget, isConnectedMModelObserveValue, null, null);
 		//
+		IObservableValue observeTextCmbDatabaseTypeObserveWidget = WidgetProperties.text().observe(cmbDatabaseType);
+		IObservableValue databaseTypeMModelObserveValue = BeanProperties.value("databaseType").observe(mModel);
+		bindingContext.bindValue(observeTextCmbDatabaseTypeObserveWidget, databaseTypeMModelObserveValue, null, null);
+		//
 		return bindingContext;
 	}
 }

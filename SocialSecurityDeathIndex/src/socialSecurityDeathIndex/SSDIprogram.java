@@ -31,6 +31,7 @@ public class SSDIprogram implements Serializable {
 	private Boolean mIsConnected = false;
 	private Boolean mAddRecords = false;
 	private int mDatabasePort = 0;
+	private String mDatabaseType = MySqlDatabaseConnection.SPONSOR;
 	private static SSDIprogram mDefaultInstance = null;
 	
 	/**
@@ -58,11 +59,11 @@ public class SSDIprogram implements Serializable {
 	 */
 	public void Connect( String sDatabaseType )
 	{
-		if ( sDatabaseType.equalsIgnoreCase("MySQL"))
+		if ( sDatabaseType.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
 			mConnection = new MySqlDatabaseConnection();
-		else if ( sDatabaseType.equalsIgnoreCase("SQL Server") )
+		else if ( sDatabaseType.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
 			mConnection = new SqlServerDatabaseConnection();
-		else // if ( sDatabaseType.equalsIgnoreCase("Can of Beans"))
+		else // if ( sDatabaseType.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
 			mConnection = new BeanDatabaseConnection();
 		// TODO Else we should actually throw an appropriate exception
 		try {
@@ -167,6 +168,18 @@ public class SSDIprogram implements Serializable {
 		int iOldValue = mDatabasePort;
 		mDatabasePort = databasePort;
 		firePropertyChange("databasePort", iOldValue, databasePort);
+	}
+	
+	public String getDatabaseType()
+	{
+		return mDatabaseType;
+	}
+	
+	public void setDatabaseType( String databaseType )
+	{
+		String sOldValue = mDatabaseType;
+		mDatabaseType = databaseType; 
+		firePropertyChange("databaseType", sOldValue, databaseType);
 	}
 	
 	private PropertyChangeSupport changeSupport = 
