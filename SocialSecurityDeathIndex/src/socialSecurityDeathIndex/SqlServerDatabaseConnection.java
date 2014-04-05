@@ -13,6 +13,7 @@ import java.sql.SQLException;
  */
 public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	
+	public static final String SPONSOR = "SQL Server";
 	public static final int DEFAULT_PORT = 1433;
 	public static final String DEFAULT_DATABASE_USER = "root";
 	public static final String DEFAULT_URL_BASE = "jdbc:sqlserver://";

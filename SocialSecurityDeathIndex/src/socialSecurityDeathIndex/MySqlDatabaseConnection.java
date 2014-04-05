@@ -12,7 +12,7 @@ import java.sql.SQLException;
  *
  */
 public final class MySqlDatabaseConnection extends DatabaseConnection {
-	
+	public static final String SPONSOR = "MySQL";
 	public static final int DEFAULT_PORT = 3306;
 	public static final String DEFAULT_DATABASE_USER = "root";
 	public static final String DEFAULT_URL_BASE = "jdbc:mysql://";

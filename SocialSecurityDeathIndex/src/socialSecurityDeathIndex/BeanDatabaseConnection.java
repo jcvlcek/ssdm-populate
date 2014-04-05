@@ -12,6 +12,7 @@ import java.util.HashMap;
  */
 public final class BeanDatabaseConnection extends DatabaseConnection {
 
+	public static final String SPONSOR = "Can of Beans";
 	private HashMap<Long, IDeathRecord> mRecords = new HashMap<Long, IDeathRecord>();
 	
 	/**
