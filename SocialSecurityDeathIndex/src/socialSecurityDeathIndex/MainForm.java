@@ -101,6 +101,7 @@ public class MainForm {
 		cmbDatabaseType.setText("MySQL");
 		
 		txtHostname = new Text(grpDatabase, SWT.BORDER);
+		txtHostname.setToolTipText("Database server host name or IP address");
 		txtHostname.setBounds(141, 22, 100, 27);
 		txtHostname.setText("localhost");
 		
@@ -126,6 +127,7 @@ public class MainForm {
 		text.setBounds(141, 78, 100, 19);
 		
 		mbtnLookItUp = new Button(grpDatabase, SWT.NONE);
+		mbtnLookItUp.setToolTipText("Look up the specified SSAN in the database");
 		mbtnLookItUp.setEnabled(false);
 		mbtnLookItUp.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -143,6 +145,7 @@ public class MainForm {
 		mbtnLookItUp.setText("Look it up");
 		
 		txtPort = new Text(grpDatabase, SWT.BORDER);
+		txtPort.setToolTipText("Database port number");
 		txtPort.setBounds(245, 22, 76, 27);
 		
 		btnDisconnect = new Button(grpDatabase, SWT.NONE);
@@ -227,6 +230,9 @@ public class MainForm {
 		IObservableValue observeTextCmbDatabaseTypeObserveWidget = WidgetProperties.text().observe(cmbDatabaseType);
 		IObservableValue databaseTypeMModelObserveValue = BeanProperties.value("databaseType").observe(mModel);
 		bindingContext.bindValue(observeTextCmbDatabaseTypeObserveWidget, databaseTypeMModelObserveValue, null, null);
+		//
+		IObservableValue observeEnabledMchkAddItemsObserveWidget = WidgetProperties.enabled().observe(mchkAddItems);
+		bindingContext.bindValue(observeEnabledMchkAddItemsObserveWidget, isConnectedMModelObserveValue, null, null);
 		//
 		return bindingContext;
 	}
