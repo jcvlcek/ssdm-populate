@@ -24,6 +24,7 @@ import org.eclipse.core.databinding.beans.PojoProperties;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.conversion.IConverter;
 
 public class MainForm {
 	private DataBindingContext m_bindingContext;
@@ -40,6 +41,8 @@ public class MainForm {
 	private SSDIprogram mModel = null;
 	private Text txtPort;
 	private Button btnDisconnect;
+	private UpdateValueStrategy mBooleanInverterConverter = null;
+	private Button btnConnect;
 	
 	/**
 	 * Launch the application.
@@ -83,6 +86,27 @@ public class MainForm {
 	 * Create contents of the window.
 	 */
 	protected void createContents() {
+		// Converter for enabling button when a model value is FALSE
+		mBooleanInverterConverter = new UpdateValueStrategy();
+		mBooleanInverterConverter.setConverter(new IConverter() {
+		@Override
+		public Object getToType() {
+		    return Boolean.TYPE;
+		}
+		   @Override
+		public Object getFromType() {
+		    return Boolean.TYPE;
+		}
+		@Override
+		    public Object convert(Object fromObject) {
+		    if (fromObject instanceof Boolean) {
+		   // return Inverse of source value
+		        return ((Boolean) fromObject).booleanValue() ? Boolean.FALSE : Boolean.TRUE;
+		        }
+		  return Boolean.FALSE;
+		}
+		});
+		
 		mModel = SSDIprogram.Default();
 		
 		shlSsdiDeathMaster = new Shell();
@@ -105,7 +129,7 @@ public class MainForm {
 		txtHostname.setBounds(141, 22, 100, 27);
 		txtHostname.setText("localhost");
 		
-		Button btnConnect = new Button(grpDatabase, SWT.NONE);
+		btnConnect = new Button(grpDatabase, SWT.NONE);
 		btnConnect.setBounds(327, 15, 91, 29);
 		btnConnect.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -233,6 +257,9 @@ public class MainForm {
 		//
 		IObservableValue observeEnabledMchkAddItemsObserveWidget = WidgetProperties.enabled().observe(mchkAddItems);
 		bindingContext.bindValue(observeEnabledMchkAddItemsObserveWidget, isConnectedMModelObserveValue, null, null);
+		//
+		IObservableValue btnConnectObserveEnabledObserveWidget = SWTObservables.observeEnabled(btnConnect);
+		bindingContext.bindValue(btnConnectObserveEnabledObserveWidget, isConnectedMModelObserveValue, mBooleanInverterConverter, mBooleanInverterConverter ); // null, null);
 		//
 		return bindingContext;
 	}
