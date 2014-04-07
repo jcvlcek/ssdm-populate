@@ -87,25 +87,7 @@ public class MainForm {
 	 */
 	protected void createContents() {
 		// Converter for enabling button when a model value is FALSE
-		mBooleanInverterConverter = new UpdateValueStrategy();
-		mBooleanInverterConverter.setConverter(new IConverter() {
-		@Override
-		public Object getToType() {
-		    return Boolean.TYPE;
-		}
-		   @Override
-		public Object getFromType() {
-		    return Boolean.TYPE;
-		}
-		@Override
-		    public Object convert(Object fromObject) {
-		    if (fromObject instanceof Boolean) {
-		   // return Inverse of source value
-		        return ((Boolean) fromObject).booleanValue() ? Boolean.FALSE : Boolean.TRUE;
-		        }
-		  return Boolean.FALSE;
-		}
-		});
+		mBooleanInverterConverter = CustomConverters.getBooleanInverter();
 		
 		mModel = SSDIprogram.Default();
 		
