@@ -125,12 +125,12 @@ public class MainForm {
 		
 		Label lblQuerySsan = new Label(grpDatabase, SWT.NONE);
 		lblQuerySsan.setAlignment(SWT.RIGHT);
-		lblQuerySsan.setBounds(10, 78, 125, 21);
+		lblQuerySsan.setBounds(10, 78, 85, 21);
 		lblQuerySsan.setText("Query SSAN:");
 		
 		text = new Text(grpDatabase, SWT.BORDER);
 		text.setText("999-99-9999");
-		text.setBounds(141, 78, 100, 19);
+		text.setBounds(108, 75, 100, 19);
 		
 		mbtnLookItUp = new Button(grpDatabase, SWT.NONE);
 		mbtnLookItUp.setToolTipText("Look up the specified SSAN in the database");
@@ -147,7 +147,7 @@ public class MainForm {
 					JOptionPane.showMessageDialog(null, "No match for SSAN " + String.valueOf( lSSAN ));
 			}
 		});
-		mbtnLookItUp.setBounds(247, 76, 91, 23);
+		mbtnLookItUp.setBounds(214, 73, 91, 23);
 		mbtnLookItUp.setText("Look it up");
 		
 		txtPort = new Text(grpDatabase, SWT.BORDER | SWT.RIGHT);
@@ -164,7 +164,7 @@ public class MainForm {
 		});
 		btnDisconnect.setToolTipText("Disconnect from database");
 		btnDisconnect.setText("Disconnect");
-		btnDisconnect.setBounds(327, 41, 91, 29);
+		btnDisconnect.setBounds(327, 50, 91, 29);
 		
 		Group grpMasterFile = new Group(shlSsdiDeathMaster, SWT.NONE);
 		grpMasterFile.setText("Master File");
