@@ -26,4 +26,26 @@ public final class CustomConverters {
 			}
 			});
 	}
+
+	public static UpdateValueStrategy getIntToStringConverter()
+	{
+		return new UpdateValueStrategy().setConverter(new IConverter() {
+			@Override
+			public Object getToType() {
+			    return String.class;
+			}
+			   @Override
+			public Object getFromType() {
+			    return Integer.TYPE;
+			}
+			@Override
+			    public Object convert(Object fromObject) {
+			    if (fromObject instanceof Integer) {
+			   // return string representation without commas
+			        return String.format("%d", (Integer)fromObject);
+			        }
+			  return "0";
+			}
+			});
+	}
 }

@@ -150,7 +150,7 @@ public class MainForm {
 		mbtnLookItUp.setBounds(247, 76, 91, 23);
 		mbtnLookItUp.setText("Look it up");
 		
-		txtPort = new Text(grpDatabase, SWT.BORDER);
+		txtPort = new Text(grpDatabase, SWT.BORDER | SWT.RIGHT);
 		txtPort.setToolTipText("Database port number");
 		txtPort.setBounds(245, 22, 76, 27);
 		
@@ -228,7 +228,7 @@ public class MainForm {
 		//
 		IObservableValue observeTextTxtPortObserveWidget = WidgetProperties.text(SWT.Modify).observe(txtPort);
 		IObservableValue databasePortMModelObserveValue = BeanProperties.value("databasePort").observe(mModel);
-		bindingContext.bindValue(observeTextTxtPortObserveWidget, databasePortMModelObserveValue, null, null);
+		bindingContext.bindValue(observeTextTxtPortObserveWidget, databasePortMModelObserveValue, null, CustomConverters.getIntToStringConverter());
 		//
 		IObservableValue observeEnabledBtnDisconnectObserveWidget = WidgetProperties.enabled().observe(btnDisconnect);
 		bindingContext.bindValue(observeEnabledBtnDisconnectObserveWidget, isConnectedMModelObserveValue, null, null);
