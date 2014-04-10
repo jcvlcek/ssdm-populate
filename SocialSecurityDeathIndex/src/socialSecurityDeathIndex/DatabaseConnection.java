@@ -54,6 +54,20 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		mPort = 0;
 	}
 	
+	public static IDatabaseConnection CreateConnection( String sSponsor )
+	{
+		// Still an ugly, switch-statement-based approach,
+		// but at least it's here and not in SSDIprogram
+		// TODO: Use Java's ServiceLoader mechanism instead
+		if ( sSponsor.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
+			return new MySqlDatabaseConnection();
+		else if ( sSponsor.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
+			return new SqlServerDatabaseConnection();
+		else // if ( sSponsor.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
+			return new BeanDatabaseConnection();
+		// TODO Else we should actually throw an appropriate exception
+	}
+	
 	/**
 	 * Prompt the user to supply a username and password for the database
 	 * @return the user-supplied password for the database (null if the user cancels the operation)

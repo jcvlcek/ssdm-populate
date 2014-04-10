@@ -58,14 +58,7 @@ public class SSDIprogram implements Serializable {
 	 */
 	public void Connect( )
 	{
-		String sDatabaseType = getDatabaseType();
-		if ( sDatabaseType.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
-			mConnection = new MySqlDatabaseConnection();
-		else if ( sDatabaseType.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
-			mConnection = new SqlServerDatabaseConnection();
-		else // if ( sDatabaseType.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
-			mConnection = new BeanDatabaseConnection();
-		// TODO Else we should actually throw an appropriate exception
+		mConnection = DatabaseConnection.CreateConnection(getDatabaseType());
 		try {
 			mConnection.Connect( getDatabasePort() );
 			setIsConnected( true );
