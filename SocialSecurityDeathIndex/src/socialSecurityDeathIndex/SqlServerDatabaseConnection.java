@@ -3,7 +3,6 @@
  */
 package socialSecurityDeathIndex;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -30,13 +29,13 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
-		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
 		Class.forName(driver).newInstance();
-		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
-		if ( sPassword != null )
+		// TODO: Enable selection of integrated security or manual authentication
+		// String sPassword = GetPassword( DEFAULT_DATABASE_USER );
+		if ( true ) // ( sPassword != null )
 		{
-			String user = getUsername();
+			// String user = getUsername();
 			// String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";user=" + user + ";password=" + sPassword + ";";
 			String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
 			mConnection = DriverManager.getConnection(url);
