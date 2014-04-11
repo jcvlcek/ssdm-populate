@@ -17,14 +17,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
-import org.eclipse.core.databinding.beans.PojoObservables;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
-import org.eclipse.core.databinding.beans.PojoProperties;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
-import org.eclipse.core.databinding.conversion.IConverter;
 
 public class MainForm {
 	private DataBindingContext m_bindingContext;
