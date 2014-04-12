@@ -263,6 +263,9 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		return Match( drTarg.getSSAN()) != null;
 	}
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#Match(java.lang.Long)
+	 */
 	@Override
 	public IDeathRecord Match(long SSAN) {
 		Statement stmt = null;

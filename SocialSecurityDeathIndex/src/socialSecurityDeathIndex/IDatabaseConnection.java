@@ -65,7 +65,7 @@ public interface IDatabaseConnection {
 	/**
 	 * Add a new record to the database
 	 * @param drNew the new record to add
-	 * @throws DuplicateKeyException
+	 * @throws DuplicateKeyException if a record exists with the same SSAN as drNew
 	 */
 	void AddRecord( IDeathRecord drNew ) throws DuplicateKeyException;
 }
