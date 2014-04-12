@@ -19,10 +19,18 @@ import javax.swing.JTextField;
 
 /**
  * @author vlcek
- *
+ */
+/**
+ * A default implementation of the IDatabaseConnection interface.<br>
+ * Subclasses inherit from DatabaseConnection to establish a connection
+ * to a database from a specific vendor (sponsor).<br>
+ * These subclasses must implement at least the ConnectToDatabase method.
  */
 public abstract class DatabaseConnection implements IDatabaseConnection {
 
+	/**
+	 * The hostname or IP address of the database server
+	 */
 	public static final String DEFAULT_DATABASE_HOST = "localhost";
 	public static final String DEFAULT_DATABASE_NAME = "SSDI";
 	
@@ -54,6 +62,11 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		mPort = 0;
 	}
 	
+	/**
+	 * Create a connection corresponding to the provided sponsor specification
+	 * @param sSponsor the sponsor (vendor, etc.) of the database to be connected
+	 * @return an as-yet unconnected database connection
+	 */
 	public static IDatabaseConnection CreateConnection( String sSponsor )
 	{
 		// Still an ugly, switch-statement-based approach,
@@ -211,7 +224,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	/**
 	 * Get the TCP port the database is listening on
-	 * @return
+	 * @return The TCP port the database is listening on
 	 */
 	public int getPort()
 	{
@@ -229,7 +242,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	/**
 	 * Get the user name used for authenticating to the database
-	 * @return
+	 * @return The user name used for authenticating to the database
 	 */
 	public String getUsername()
 	{
