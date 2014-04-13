@@ -1,21 +1,11 @@
 package socialSecurityDeathIndex;
 
 /**
- * 
- */
-
-/**
- * @author vlcek
- *
+ * An individual Death Index record in a {@link socialSecurityDeathIndex.DeathMasterFile}
+ * @author Jim Vlcek
  */
 public class DeathRecord implements IDeathRecord {
-	/*
-	 * 
-	 */
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2378917208976269195L;
 	private long mSSAN;
 	private String mGivenName;
@@ -49,7 +39,7 @@ public class DeathRecord implements IDeathRecord {
 	public static final int PAYMENT_ZIP_ENDING_COLUMN = 92;
 	
 	/**
-	 * Default constructor
+	 * Create a death record with default values
 	 */
 	public DeathRecord()
 	{
@@ -76,7 +66,10 @@ public class DeathRecord implements IDeathRecord {
 	}
 
 	/**
-	 * 
+	 * Create a death record from a {@link java.lang.String} read in
+	 * as a single line in a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param sRecord the line of plain-text data read from the master file
+	 * @throws IllegalArgumentException if one or more fields in the record cannot be parsed into their appropriate type
 	 */
 	public DeathRecord( String sRecord ) throws IllegalArgumentException {
 		if ( sRecord.length() != 100 )
@@ -99,28 +92,84 @@ public class DeathRecord implements IDeathRecord {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getSSAN()
+	 */
 	public long getSSAN() { return mSSAN; }
 	
+	/**
+	 * Set the Social Security Account Number of the record<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param SSAN the new value of the Social Security Account Number
+	 */
 	public void setSSAN( long SSAN ) { mSSAN = SSAN; }
 	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getGivenName()
+	 */
 	public String getGivenName() { return mGivenName; }
 	
+	/**
+	 * Set the given (first) name of the decedent<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param GivenName the given (first) name of the decedent
+	 */
 	public void setGivenName( String GivenName ) { mGivenName = GivenName; }
 	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getMiddleName()
+	 */
 	public String getMiddleName() { return mMiddleName; }
 	
+	/**
+	 * Set the middle name (or initial) of the decedent<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param MiddleName the middle name of the decedent
+	 */
 	public void setMiddleName( String MiddleName ) { mMiddleName = MiddleName; }
 	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getSurname()
+	 */
 	public String getSurname() { return mSurname; }
 	
+	/**
+	 * Set the surname (last or family name) of the decedent<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param Surname the surname (last or family name) of the decedent
+	 */
 	public void setSurname( String Surname ) { mSurname = Surname; }
 	
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getBirthDate()
+	 */
 	public TimeSpan getBirthDate() { return mBirthDate; }
 	
+	/**
+	 * Set the range of dates / times within which the decedent's
+	 * moment of birth is known to reside<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param DeathDate the date / time interval within which the decedent's birth date lies
+	 */
 	public void setBirthDate( TimeSpan DeathDate ) { mBirthDate = DeathDate; }
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDeathRecord#getDeathDate()
+	 */
 	public TimeSpan getDeathDate() { return mDeathDate; }
 	
+	/**
+	 * Set the range of dates / times within which the decedent's
+	 * moment of death is known to reside<br>
+	 * Used when constructing a death record from a source
+	 * other than a {@link socialSecurityDeathIndex.DeathMasterFile}
+	 * @param DeathDate the date / time interval within which the decedent's death date lies
+	 */
 	public void setDeathDate( TimeSpan DeathDate ) { mDeathDate = DeathDate; }
 
 	/* (non-Javadoc)

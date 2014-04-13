@@ -7,11 +7,16 @@ import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
- * @author Jim
- *
+ * Trivial, in-memory "database".<br>
+ * Implements {@link socialSecurityDeathIndex.IDatabaseConnection}
+ * to enable testing of methods and algorithms without requiring an actual database connection
+ * @author Jim Vlcek
  */
 public final class BeanDatabaseConnection extends DatabaseConnection {
 
+	/**
+	 * Unique {@link java.lang.String} identifier for this database implementation
+	 */
 	public static final String SPONSOR = "Can of Beans";
 	private HashMap<Long, IDeathRecord> mRecords = new HashMap<Long, IDeathRecord>();
 	
@@ -48,6 +53,9 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 		// Nothing to do here - yet, at least
 	}
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#AddRecord(socialSecurityDeathIndex.IDeathRecord)
+	 */
 	@Override
 	public void AddRecord(IDeathRecord drSrc) throws DuplicateKeyException {
 		long SSAN = drSrc.getSSAN();

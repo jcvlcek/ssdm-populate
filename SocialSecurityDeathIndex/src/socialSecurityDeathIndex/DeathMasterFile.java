@@ -9,27 +9,28 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * @author Jim
- *
+ * A United States Social Security Death Index master file.<br>
+ * @author Jim Vlcek
  */
 public class DeathMasterFile {
 
 	private BufferedReader mReader = null;
 	
 	/**
-	 * @throws FileNotFoundException 
-	 * 
+	 * Creates a Social Security Death Index master file from a file on disk
+	 * @param sPath the path of the file on disk to open as a Death Index master file
+	 * @throws FileNotFoundException if the specified path does not exist, is a directory
+	 * rather than file, or cannot be opened for reading for another reason
 	 */
 	public DeathMasterFile( String sPath ) throws FileNotFoundException {
 		mReader = new BufferedReader(new FileReader(sPath));
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * Reads (sequentially) a death record from the Master File
+	 * Reads (sequentially) a death record from the Master File.<br>
 	 * The file pointer is advanced to the subsequent record upon a successful read
 	 * @return The next death record in the Master File
-	 * @throws IOException
+	 * @throws IOException if an I/O error occurs while reading the underlying disk file
 	 */
 	public IDeathRecord getNext() throws IOException
 	{
@@ -42,7 +43,7 @@ public class DeathMasterFile {
 	}
 
 	/**
-	 * Close the death record Master File
+	 * Close the Death Index master file
 	 */
 	public void Close()
 	{
