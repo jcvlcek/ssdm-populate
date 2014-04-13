@@ -4,20 +4,21 @@
 package socialSecurityDeathIndex;
 
 /**
- * @author Jim
- *
+ * Database-agnostic interface implemented by any class representing
+ * a connection to a database.
+ * @author Jim Vlcek
  */
 public interface IDatabaseConnection {
 	/**
 	 * Connect to a database, using default connection parameters
-	 * @throws DbConnectionException
+	 * @throws DbConnectionException if the connection cannot be made
 	 */
 	void Connect() throws DbConnectionException;
 	
 	/**
 	 * Connect to the default database host at a specified port
 	 * @param iPort the TCP port to connect
-	 * @throws DbConnectionException
+	 * @throws DbConnectionException if the connection cannot be made
 	 */
 	void Connect( int iPort ) throws DbConnectionException;
 	
@@ -25,7 +26,7 @@ public interface IDatabaseConnection {
 	 * Connect to a specific database on a remote host
 	 * @param Hostname the remote database host (server)
 	 * @param database the name of the database on the remote host (server)
-	 * @throws DbConnectionException
+	 * @throws DbConnectionException if the connection cannot be made
 	 */
 	void Connect( String Hostname, String database ) throws DbConnectionException;
 	

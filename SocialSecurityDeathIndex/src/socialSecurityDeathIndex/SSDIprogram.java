@@ -1,5 +1,6 @@
 /**
- * 
+ * Utilities for loading United States Social Security Death Index master files
+ * into select databases (e.g. MySQL, SQL Server) and execute queries on the loaded records
  */
 package socialSecurityDeathIndex;
 
@@ -16,8 +17,8 @@ import java.beans.PropertyChangeSupport;
 
 
 /**
+ * Simple client program for loading the master files and executing queries
  * @author vlcek
- *
  */
 public class SSDIprogram implements Serializable {
 	
@@ -68,6 +69,10 @@ public class SSDIprogram implements Serializable {
 		}		
 	}
 	
+	/**
+	 * Disconnect the current active connection,
+	 * if one exists and is currently in a connected state
+	 */
 	public void Disconnect()
 	{
 		if ( mConnection != null )
@@ -75,6 +80,10 @@ public class SSDIprogram implements Serializable {
 		setIsConnected( false );
 	}
 	
+	/**
+	 * Loads a Social Security Death Index master file,
+	 * optionally adding records, as they are read in, to a connected database
+	 */
 	public void LoadMasterFile( ) {	
 		int iCount = 0;
 		try {
@@ -122,16 +131,30 @@ public class SSDIprogram implements Serializable {
 		JOptionPane.showMessageDialog(null, String.valueOf(iCount) + " total records read", "SSDM Import completed", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	/**
+	 * Query the connected database for a record matching
+	 * a specified Social Security Account Number
+	 * @param lSSAN the Social Security Account Number to query for matching records
+	 * @return the matching Death Index record, if one is found, otherwise <code>null</code>
+	 */
 	public IDeathRecord MatchRecord( long lSSAN )
 	{
 		return mConnection.Match(lSSAN);
 	}
 	
+	/**
+	 * Gets the database connection status of the program
+	 * @return <code>true</code> if the program is connected to a database, otherwise <code>false</code>
+	 */
 	public Boolean getIsConnected()
 	{
 		return mIsConnected;
 	}
 	
+	/**
+	 * Sets the database connection status of the program
+	 * @param isConnected the new connection status; <code>true</code> if connection, otherwise <code>false</false>
+	 */
 	private void setIsConnected( Boolean isConnected )
 	{
 		Boolean bOldValue = mIsConnected;
@@ -139,11 +162,22 @@ public class SSDIprogram implements Serializable {
 		firePropertyChange("isConnected", bOldValue, isConnected);
 	}
 	
+	/**
+	 * Gets the value of the "add records on read" option
+	 * @return <code>true</code> if the user has opted to add Death Index records
+	 * to the database as they are read in from a master file
+	 */
 	public Boolean getAddRecords()
 	{
 		return mAddRecords;
 	}
 	
+	/**
+	 * Sets or clears the "add records on read" option
+	 * @param addRecords the desired state of the option: <code>true</code>
+	 * to add records to the database as they are read in from a master false,
+	 * or <code>false</code> to discard the records after reading them
+	 */
 	public void setAddRecords( Boolean addRecords )
 	{
 		Boolean bOldValue = mAddRecords;
@@ -151,11 +185,19 @@ public class SSDIprogram implements Serializable {
 		firePropertyChange("addRecords", bOldValue, addRecords);
 	}
 	
+	/**
+	 * Gets the port number the database server is expected to be listening on
+	 * @return the expected port number
+	 */
 	public int getDatabasePort()
 	{
 		return mDatabasePort;
 	}
 	
+	/**
+	 * Sets the port number the database server is expected to be listening on
+	 * @param databasePort the expected port number
+	 */
 	public void setDatabasePort( int databasePort )
 	{
 		int iOldValue = mDatabasePort;
@@ -163,11 +205,21 @@ public class SSDIprogram implements Serializable {
 		firePropertyChange("databasePort", iOldValue, databasePort);
 	}
 	
+	/**
+	 * Gets a {@link java.lang.String} identifier of the database to be connected.
+	 * This identifier is associated with the "sponsor" (MySQL, SQL Server, etc.)
+	 * of the database, and not with the database server's URL.
+	 * @return the identifier {@link java.lang.String} for the database sponsor
+	 */
 	public String getDatabaseType()
 	{
 		return mDatabaseType;
 	}
 	
+	/**
+	 * Sets the {@link java.lang.String} identifier of the database to be connected.
+	 * @param databaseType the identifier {@link java.lang.String} for the database sponsor 
+	 */
 	public void setDatabaseType( String databaseType )
 	{
 		String sOldValue = mDatabaseType;
