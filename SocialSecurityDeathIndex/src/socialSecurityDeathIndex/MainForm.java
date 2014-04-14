@@ -23,6 +23,13 @@ import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.beans.BeansObservables;
 
+/**
+ * Simple user interface form to enable loading and querying
+ * Social Security Death Index databases.<br>
+ * This form contains the <code>main()</code> method for the SSDI application.
+ * @author Jim Vlcek
+ *
+ */
 public class MainForm {
 	private DataBindingContext m_bindingContext;
 
@@ -43,7 +50,7 @@ public class MainForm {
 	
 	/**
 	 * Launch the application.
-	 * @param args
+	 * @param args command line arguments passed to the program (currently ignored)
 	 */
 	public static void main(String[] args) {
 		Display display = Display.getDefault();
@@ -59,6 +66,10 @@ public class MainForm {
 		});
 	}
 	
+	/**
+	 * Get the default instance of the form
+	 * @return the default instance of the main user interface form
+	 */
 	public static MainForm getDefault()
 	{
 		return mDefaultWindow;
@@ -203,15 +214,33 @@ public class MainForm {
 		} );
 	}
 	
+	/**
+	 * Set the path of the Social Security Death Index master file to be loaded.<br>
+	 * The value of this property is displayed in a text box in the user interface.
+	 * @param sPath
+	 */
 	public void setMasterFile( String sPath )
 	{
 		mlblFileName.setText(sPath);
 	}
 	
+	/**
+	 * Set the current record under examination in the program<br>
+	 * The Social Security Account Number (SSAN) of the current record
+	 * is displayed in a text box in the user interface.
+	 * @param drCurrent the current {@link socialSecurityDeathIndex#IDeathRecord}
+	 * to examine
+	 */
 	public void setCurrentRecord( IDeathRecord drCurrent )
 	{
 		mlblCurrentRecord.setText(String.valueOf(drCurrent.getSSAN()));
 	}
+	
+	/**
+	 * Initialize the bindings linking data in the program's object model
+	 * to the widgets of the main form's user interface
+	 * @return an initialized {@link org.eclipse.core.databinding.DataBindingContext}
+	 */
 	protected DataBindingContext initDataBindings() {
 		DataBindingContext bindingContext = new DataBindingContext();
 		//
