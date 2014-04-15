@@ -7,13 +7,20 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * A time interval, specified via starting and ending
+ * {@link java.util.Date} date/timestamps.<br>
+ * The {@link socialSecurityDeathIndex.TimeSpan} class enables
+ * the specification of birth/death dates that are uncertain in
+ * day-of-month (or similar uncertainties).
  * @author vlcek
- *
  */
 public class TimeSpan {
 
 	private Date mStart, mEnd;
 	private long mDurationInSeconds;
+	/**
+	 * The number of seconds in a day
+	 */
 	public static final int SECONDS_PER_DAY = 86400;
 	
 	private int LastDayOfMonth( int iYear, int iMonth )
@@ -49,7 +56,10 @@ public class TimeSpan {
 		}
 	}
 	/**
-	 * 
+	 * Create a {@link socialSecurityDeathIndex.TimeSpan} object
+	 * from a properly-formatted date string.  The precise format
+	 * of the date string is that used in the Social Security Death Index
+	 * master file.
 	 */
 	public TimeSpan( String sSpan ) throws NumberFormatException {
 		String sMonth = sSpan.substring(0, 2);
@@ -78,24 +88,50 @@ public class TimeSpan {
 		}
 	}
 	
+	/**
+	 * Construct a time span with the default zero-length duration.
+	 * The returned object has starting and ending times equal
+	 * to the current time (at which the object is created).
+	 */
 	public TimeSpan() {
 		Calendar cal = Calendar.getInstance();
 		mStart = mEnd = cal.getTime();
 		mDurationInSeconds = 0;
 	}
 	
+	/**
+	 * Construct a time span with specified starting and ending points
+	 * @param start the earliest date/time in the {@link socialSecurityDeathIndex.TimeSpan}
+	 * @param end the latest date/time in the {@link socialSecurityDeathIndex.TimeSpan}
+	 */
 	public TimeSpan( Date start, Date end )
 	{
 		mStart = start; mEnd = end;
 		mDurationInSeconds = ( mEnd.getTime() - mStart.getTime() ) / 1000;
 	}
 
+	/**
+	 * Gets the beginning of the {@link socialSecurityDeathIndex.TimeSpan}
+	 * @return the earliest date/time date/time in the {@link socialSecurityDeathIndex.TimeSpan}
+	 */
 	public Date getStart() { return mStart; }
 	
+	/**
+	 * Gets the end of the {@link socialSecurityDeathIndex.TimeSpan}
+	 * @return the latest date/time date/time in the {@link socialSecurityDeathIndex.TimeSpan}
+	 */
 	public Date getEnd() { return mEnd; }
 	
+	/**
+	 * Gets the duration of the {@link socialSecurityDeathIndex.TimeSpan}
+	 * @return the time interval (in seconds) between {@link getStart} and {@link getEnd}
+	 */
 	public long getDurationInSeconds() { return mDurationInSeconds; }
 	
+	/**
+	 * Gets the duration of the {@link socialSecurityDeathIndex.TimeSpan}
+	 * @return the time interval (in whole days) between {@link getStart} and {@link getEnd}
+	 */
 	public long getDurationInDays() { return mDurationInSeconds / SECONDS_PER_DAY; }
 
 	/* (non-Javadoc)

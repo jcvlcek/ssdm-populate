@@ -7,24 +7,44 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * @author vlcek
- *
+ * Makes a connection to an SQL Server database, using Microsoft's
+ * <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code> driver.
+ * @author Jim Vlcek
  */
 public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	
+	/**
+	 * The sponsor (vendor) name for this database type
+	 */
 	public static final String SPONSOR = "SQL Server";
+	/**
+	 * The default IP port this database listens on
+	 */
 	public static final int DEFAULT_PORT = 1433;
+	/**
+	 * The default username for authentication to this database
+	 */
 	public static final String DEFAULT_DATABASE_USER = "root";
+	/**
+	 * The base URL for connections to databases of this type
+	 */
 	public static final String DEFAULT_URL_BASE = "jdbc:sqlserver://";
+	/**
+	 * The unique driver ID for connections to databases of this type
+	 */
 	public static final String DEFAULT_DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 
 	/**
-	 * 
+	 * Creates a new instance of an SqlServerDatabaseConnection object
 	 */
 	public SqlServerDatabaseConnection() {
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Instantiates the <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code> driver,
+	 * and attempts to make a connection to the remote SQL Server database
+	 */
 	public void ConnectToDatabase(int iPort) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		if ( iPort == 0 )
@@ -42,6 +62,9 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#AddRecord(socialSecurityDeathIndex.IDeathRecord)
+	 */
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
 		super.AddRecord( drNew );
