@@ -124,13 +124,13 @@ public class TimeSpan {
 	
 	/**
 	 * Gets the duration of the {@link socialSecurityDeathIndex.TimeSpan}
-	 * @return the time interval (in seconds) between {@link getStart} and {@link getEnd}
+	 * @return the time interval (in seconds) between {@link #getStart()} and {@link #getEnd()}
 	 */
 	public long getDurationInSeconds() { return mDurationInSeconds; }
 	
 	/**
 	 * Gets the duration of the {@link socialSecurityDeathIndex.TimeSpan}
-	 * @return the time interval (in whole days) between {@link getStart} and {@link getEnd}
+	 * @return the time interval (in whole days) between {@link #getStart()} and {@link #getEnd()}
 	 */
 	public long getDurationInDays() { return mDurationInSeconds / SECONDS_PER_DAY; }
 

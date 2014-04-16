@@ -4,8 +4,11 @@
 package socialSecurityDeathIndex;
 
 /**
- * @author Jim
- *
+ * Exception thrown on an attempt to add a record, with a
+ * unique key (the Social Security Account Number) equal
+ * to the key of an existing record, to a
+ * Social Security Death Index database
+ * @author Jim Vlcek
  */
 public class DuplicateKeyException extends Exception {
 
