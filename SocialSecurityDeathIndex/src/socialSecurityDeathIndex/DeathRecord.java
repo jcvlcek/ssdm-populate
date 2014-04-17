@@ -15,27 +15,96 @@ public class DeathRecord implements IDeathRecord {
 	private TimeSpan mDeathDate;
 	
 	// All column indices are zero-referenced
+	/**
+	 * Addition/deletion/change flag column<br>
+	 * <code>A</code> == Add<br>
+	 * <code>C</code> == Change<br>
+	 * <code>D</code> == Delete<br>
+	 */
 	public static final int ADD_DELETE_CHANGE_COLUMN = 0;
+	/**
+	 * Social Security Account Number (first column)
+	 */
 	public static final int SSAN_STARTING_COLUMN = 1;
+	/**
+	 * Social Security Account Number (last column)
+	 */
 	public static final int SSAN_ENDING_COLUMN = 9;
+	/**
+	 * Last / family / surname (first column)
+	 */
 	public static final int LAST_NAME_STARTING_COLUMN = 10;
+	/**
+	 * Last / family / surname (last column)
+	 */
 	public static final int LAST_NAME_ENDING_COLUMN = 29;
+	/**
+	 * Name suffix (first column)
+	 */
 	public static final int NAME_SUFFIX_STARTING_COLUMN = 30;
+	/**
+	 * Name suffix (last column)
+	 */
 	public static final int NAME_SUFFIX_ENDING_COLUMN = 33;
+	/**
+	 * First / given name (first column)
+	 */
 	public static final int FIRST_NAME_STARTING_COLUMN = 34;
+	/**
+	 * First / given name (last column)
+	 */
 	public static final int FIRST_NAME_ENDING_COLUMN = 48;
+	/**
+	 * Middle name (first column)
+	 */
 	public static final int MIDDLE_NAME_STARTING_COLUMN = 49;
+	/**
+	 * Middle name (last column)
+	 */
 	public static final int MIDDLE_NAME_ENDING_COLUMN = 63;
+	/**
+	 * Verified / proof code column
+	 */
 	public static final int VP_CODE_COLUMN = 64;
+	/**
+	 * Death date (first column)
+	 */
 	public static final int DEATH_DATE_STARTING_COLUMN = 65;
+	/**
+	 * Death date (last column)
+	 */
 	public static final int DEATH_DATE_ENDING_COLUMN = 72;
+	/**
+	 * Birth date (first column)
+	 */
 	public static final int BIRTH_DATE_STARTING_COLUMN = 73;
+	/**
+	 * Birth date (last column)
+	 */
 	public static final int BIRTH_DATE_ENDING_COLUMN = 80;
+	/**
+	 * State/Country code of residence (first column)
+	 */
 	public static final int STATE_CODE_STARTING_COLUMN = 81;
+	/**
+	 * State/Country code of residence (last column)
+	 */
 	public static final int STATE_CODE_ENDING_COLUMN = 82;
+	/**
+	 * Zip code - last residence (first column)
+	 */
 	public static final int RESIDENCE_ZIP_STARTING_COLUMN = 83;
+	/**
+	 * Zip code - last residence (last column)
+	 */
 	public static final int RESIDENCE_ZIP_ENDING_COLUMN = 87;
+	/**
+	 * Zip code - lump sum payment (first column)
+	 */
 	public static final int PAYMENT_ZIP_STARTING_COLUMN = 88;
+	/**
+	 * Zip code - lump sum payment (last column)
+	 */
 	public static final int PAYMENT_ZIP_ENDING_COLUMN = 92;
 	
 	/**
