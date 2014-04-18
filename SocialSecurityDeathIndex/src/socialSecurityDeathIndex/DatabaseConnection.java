@@ -32,15 +32,41 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * The hostname or IP address of the database server
 	 */
 	public static final String DEFAULT_DATABASE_HOST = "localhost";
+	/**
+	 * The default database name for the Social Security Death Index tables
+	 */
 	public static final String DEFAULT_DATABASE_NAME = "SSDI";
-	
+	/**
+	 * Last / family / surname column name in the database table
+	 */
 	public static final String LAST_NAME_COLUMN = "LASTNAME";
+	/**
+	 * First / given name column name in the database table
+	 */
 	public static final String FIRST_NAME_COLUMN = "FIRSTNAME";
+	/**
+	 * Middle name column name in the database table
+	 */
 	public static final String MIDDLE_NAME_COLUMN = "MIDDLENAME";
+	/**
+	 * Earliest birth date column name in the database table
+	 */
 	public static final String EARLIEST_BIRTH_DATE_COLUMN = "BIRTHBEGIN";
+	/**
+	 * Latest birth date column name in the database table
+	 */
 	public static final String LATEST_BIRTH_DATE_COLUMN = "BIRTHEND";
+	/**
+	 * Earliest death date column name in the database table
+	 */
 	public static final String EARLIEST_DEATH_DATE_COLUMN = "DEATHBEGIN";
+	/**
+	 * Latest death date column name in the database table
+	 */
 	public static final String LATEST_DEATH_DATE_COLUMN = "DEATHEND";
+	/**
+	 * Social Security Account Number column name in the database table
+	 */
 	public static final String SSAN_COLUMN = "SSAN";
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
