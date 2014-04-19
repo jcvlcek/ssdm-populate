@@ -39,7 +39,7 @@ public interface IDeathRecord extends Serializable {
 	/**
 	 * Gets the known range of dates/times within which the decedent's
 	 * actual birth occurred
-	 * @return a {@link socialSecurityDeathIndex#TimeSpan} within which
+	 * @return a {@link socialSecurityDeathIndex.TimeSpan} within which
 	 * the decedent's actual birth is known to have occurred
 	 */
 	TimeSpan getBirthDate();
@@ -47,7 +47,7 @@ public interface IDeathRecord extends Serializable {
 	/**
 	 * Gets the known range of dates/times within which the decedent's
 	 * actual death occurred
-	 * @return a {@link socialSecurityDeathIndex#TimeSpan} within which
+	 * @return a {@link socialSecurityDeathIndex.TimeSpan} within which
 	 * the decedent's actual death is known to have occurred
 	 */
 	TimeSpan getDeathDate();

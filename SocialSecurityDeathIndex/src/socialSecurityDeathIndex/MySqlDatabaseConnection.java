@@ -43,6 +43,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	/**
 	 * Instantiates the <code>com.mysql.jdbc.Driver</code> driver,
 	 * and attempts to make a connection to the remote MySQL database
+	 * @param iPort the IP port on which the database server is listening
 	 */
 	public void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
@@ -51,6 +52,8 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + "/";
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
+		// TODO: newInstance considered evil: http://stackoverflow.com/questions/195321/why-is-class-newinstance-evil
+		// Replace it with a better approach
 		Class.forName(driver).newInstance();
 		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( sPassword != null )

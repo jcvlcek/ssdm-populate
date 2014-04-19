@@ -60,6 +60,9 @@ public class TimeSpan {
 	 * from a properly-formatted date string.  The precise format
 	 * of the date string is that used in the Social Security Death Index
 	 * master file.
+	 * @param sSpan a string representation of the time span, in the format <code>MMDDYYYY</code>
+	 * @throws NumberFormatException if the month, date or year in <code>sSpan</code> are not valid
+	 * string representations of integer values
 	 */
 	public TimeSpan( String sSpan ) throws NumberFormatException {
 		String sMonth = sSpan.substring(0, 2);

@@ -217,7 +217,7 @@ public class MainForm {
 	/**
 	 * Set the path of the Social Security Death Index master file to be loaded.<br>
 	 * The value of this property is displayed in a text box in the user interface.
-	 * @param sPath
+	 * @param sPath the full file path of the Social Security Death Index master file under examination
 	 */
 	public void setMasterFile( String sPath )
 	{
@@ -228,7 +228,7 @@ public class MainForm {
 	 * Set the current record under examination in the program<br>
 	 * The Social Security Account Number (SSAN) of the current record
 	 * is displayed in a text box in the user interface.
-	 * @param drCurrent the current {@link socialSecurityDeathIndex#IDeathRecord}
+	 * @param drCurrent the current {@link socialSecurityDeathIndex.IDeathRecord}
 	 * to examine
 	 */
 	public void setCurrentRecord( IDeathRecord drCurrent )

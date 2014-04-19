@@ -110,6 +110,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	/**
 	 * Prompt the user to supply a username and password for the database
 	 * @return the user-supplied password for the database (null if the user cancels the operation)
+	 * @param sDefaultUser the default user name for authentication (may be overridden by the user)
 	 */
 	public String GetPassword( String sDefaultUser )
 	{
@@ -207,10 +208,10 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	/**
 	 * Execute a database-specific connection
 	 * @param iPort TCP port to connect to
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
+	 * @throws InstantiationException if the driver class for the chosen database sponsor cannot be loaded
+	 * @throws IllegalAccessException if the driver class or its nullary constructor is not accessible
+	 * @throws ClassNotFoundException if the driver class for the chosen database sponsor cannot be found
+	 * @throws SQLException if an error occurs while connecting to the database
 	 */
 	public abstract void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
 	
