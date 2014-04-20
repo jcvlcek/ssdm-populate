@@ -44,6 +44,10 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	 * Instantiates the <code>com.mysql.jdbc.Driver</code> driver,
 	 * and attempts to make a connection to the remote MySQL database
 	 * @param iPort the IP port on which the database server is listening
+	 * @throws InstantiationException if the MySQL driver cannot be instantiated
+	 * @throws IllegalAccessException if the user has insufficient access privileges to instantiate and exercise the MySQL connection driver
+	 * @throws ClassNotFoundException if the MySQL driver class cannot be found
+	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	public void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
