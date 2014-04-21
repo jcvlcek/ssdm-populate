@@ -12,7 +12,7 @@ import java.util.Date;
  * The {@link socialSecurityDeathIndex.TimeSpan} class enables
  * the specification of birth/death dates that are uncertain in
  * day-of-month (or similar uncertainties).
- * @author vlcek
+ * @author Jim Vlcek
  */
 public class TimeSpan {
 
