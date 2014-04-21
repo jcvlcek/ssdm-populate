@@ -164,6 +164,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getSSAN()
 	 */
+	@Override
 	public long getSSAN() { return mSSAN; }
 	
 	/**
@@ -177,6 +178,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getGivenName()
 	 */
+	@Override
 	public String getGivenName() { return mGivenName; }
 	
 	/**
@@ -190,6 +192,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getMiddleName()
 	 */
+	@Override
 	public String getMiddleName() { return mMiddleName; }
 	
 	/**
@@ -203,6 +206,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getSurname()
 	 */
+	@Override
 	public String getSurname() { return mSurname; }
 	
 	/**
@@ -216,6 +220,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getBirthDate()
 	 */
+	@Override
 	public TimeSpan getBirthDate() { return mBirthDate; }
 	
 	/**
@@ -230,6 +235,7 @@ public class DeathRecord implements IDeathRecord {
 	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDeathRecord#getDeathDate()
 	 */
+	@Override
 	public TimeSpan getDeathDate() { return mDeathDate; }
 	
 	/**

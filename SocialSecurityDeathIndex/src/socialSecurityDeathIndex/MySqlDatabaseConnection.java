@@ -49,6 +49,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	 * @throws ClassNotFoundException if the MySQL driver class cannot be found
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
+	@Override
 	public void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		if ( iPort == 0 )

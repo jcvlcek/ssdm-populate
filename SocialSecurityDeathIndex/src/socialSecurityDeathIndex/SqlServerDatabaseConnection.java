@@ -49,6 +49,7 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	 * @throws ClassNotFoundException if the SQL server driver class cannot be found
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
+	@Override
 	public void ConnectToDatabase(int iPort) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		if ( iPort == 0 )
