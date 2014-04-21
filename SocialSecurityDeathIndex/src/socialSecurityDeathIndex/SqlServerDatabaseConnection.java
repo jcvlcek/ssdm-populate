@@ -44,6 +44,10 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	/**
 	 * Instantiates the <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code> driver,
 	 * and attempts to make a connection to the remote SQL Server database
+	 * @throws InstantiationException if the SQL server driver cannot be instantiated
+	 * @throws IllegalAccessException if the user has insufficient access privileges to instantiate and exercise the SQL server connection driver
+	 * @throws ClassNotFoundException if the SQL server driver class cannot be found
+	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	public void ConnectToDatabase(int iPort) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
