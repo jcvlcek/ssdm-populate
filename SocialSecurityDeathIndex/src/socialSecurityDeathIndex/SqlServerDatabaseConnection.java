@@ -40,7 +40,15 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	public SqlServerDatabaseConnection() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#getSponsor()
+	 */
+	@Override
+	public String getSponsor() {
+		return SPONSOR;
+	}
+
 	/**
 	 * Instantiates the <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code> driver,
 	 * and attempts to make a connection to the remote SQL Server database

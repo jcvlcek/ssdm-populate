@@ -39,7 +39,15 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	public MySqlDatabaseConnection() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#getSponsor()
+	 */
+	@Override
+	public String getSponsor() {
+		return SPONSOR;
+	}
+
 	/**
 	 * Instantiates the <code>com.mysql.jdbc.Driver</code> driver,
 	 * and attempts to make a connection to the remote MySQL database

@@ -28,6 +28,14 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	}
 
 	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#getSponsor()
+	 */
+	@Override
+	public String getSponsor() {
+		return SPONSOR;
+	}
+
+	/* (non-Javadoc)
 	 * @see socialSecurityDeathIndex.IDatabaseConnection#RecordExists(socialSecurityDeathIndex.IDeathRecord)
 	 */
 	@Override
