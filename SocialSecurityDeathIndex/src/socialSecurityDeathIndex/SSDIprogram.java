@@ -10,15 +10,18 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 
 /**
  * Simple client program for loading the master files and executing queries
- * @author vlcek
+ * @author Jim Vlcek
  */
 public class SSDIprogram implements Serializable {
 	
@@ -34,13 +37,16 @@ public class SSDIprogram implements Serializable {
 	private int mDatabasePort = 0;
 	private String mDatabaseType = BeanDatabaseConnection.SPONSOR;
 	private static SSDIprogram mDefaultInstance = null;
+	private static List<Class<? extends IDatabaseConnection>> mSponsors = new ArrayList<Class<? extends IDatabaseConnection>>();
 	
 	/**
 	 * Default constructor made private; use a named constructor to obtain an instance
 	 */
 	private SSDIprogram()
 	{
-		// Nothing to do here, yet...
+		mSponsors.add( BeanDatabaseConnection.class );
+		mSponsors.add( MySqlDatabaseConnection.class );
+		mSponsors.add( SqlServerDatabaseConnection.class );
 	}
 	
 	/**
