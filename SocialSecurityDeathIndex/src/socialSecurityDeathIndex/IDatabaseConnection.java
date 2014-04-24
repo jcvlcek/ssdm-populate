@@ -36,12 +36,6 @@ public interface IDatabaseConnection {
 	void Disconnect();
 	
 	/**
-	 * Get the vendor / "sponsor" of the database implementation
-	 * @return the name of the vendor / "sponsor" of the database implementation 
-	 */
-	String getSponsor();
-	
-	/**
 	 * Get the name of the database on the remote host
 	 * @return the name of the database
 	 */

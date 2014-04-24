@@ -41,11 +41,11 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see socialSecurityDeathIndex.IDatabaseConnection#getSponsor()
+	/**
+	 * Get the vendor / "sponsor" of the database implementation
+	 * @return the name of the vendor / "sponsor" of the database implementation 
 	 */
-	@Override
-	public String getSponsor() {
+	public static String getSponsor() {
 		return SPONSOR;
 	}
 
