@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -232,14 +234,37 @@ public class SSDIprogram implements Serializable {
 		mDatabaseType = databaseType; 
 		firePropertyChange("databaseType", sOldValue, databaseType);
 		
-		// TODO - Use Reflection to get rid of this switch-statement polymorphism
-		if ( databaseType.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
-			setDatabasePort( MySqlDatabaseConnection.DEFAULT_PORT );
-		else if ( databaseType.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
-			setDatabasePort( SqlServerDatabaseConnection.DEFAULT_PORT );
-		else // if ( sDatabaseType.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
-			setDatabasePort( 0 );
-		// TODO Else we should actually throw an appropriate exception
+		for ( Class<? extends IDatabaseConnection> cNext : mSponsors )
+		{
+			try {
+				Method getSponsor = cNext.getMethod("getSponsor", (Class<?>[])null);
+				String sSponsor = (String) getSponsor.invoke(null, (Object[])null);
+				if ( databaseType.equalsIgnoreCase(sSponsor))
+				{
+					int iPort = (Integer)cNext.getField("DEFAULT_PORT").getInt(null);
+					setDatabasePort( iPort );
+				}
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchFieldException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		// TODO We should throw an appropriate exception if no class matches
 	}
 	
 	private PropertyChangeSupport changeSupport = 
