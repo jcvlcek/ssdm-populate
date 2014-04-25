@@ -18,6 +18,10 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 * Unique {@link java.lang.String} identifier for this database implementation
 	 */
 	public static final String SPONSOR = "Can of Beans";
+	/**
+	 * The default IP port this database listens on
+	 */
+	public static final int DEFAULT_PORT = 0;
 	private HashMap<Long, IDeathRecord> mRecords = new HashMap<Long, IDeathRecord>();
 	
 	/**
