@@ -38,6 +38,7 @@ public class SSDIprogram implements Serializable {
 	private Boolean mAddRecords = false;
 	private int mDatabasePort = 0;
 	private String mDatabaseType = BeanDatabaseConnection.SPONSOR;
+	private static final String NewLine = System.getProperty("line.separator");
 	private static SSDIprogram mDefaultInstance = null;
 	private static List<Class<? extends IDatabaseConnection>> mSponsors = new ArrayList<Class<? extends IDatabaseConnection>>();
 	
@@ -245,23 +246,23 @@ public class SSDIprogram implements Serializable {
 					setDatabasePort( iPort );
 				}
 			} catch (NoSuchMethodException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"getSponsor\" method", "Internal error", JOptionPane.ERROR_MESSAGE);
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "generated a security violation executing the \"getSponsor\" method" + NewLine + "or accessing the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "lacks access to either the \"getSponsor\" method" + NewLine + "or the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method did not match the expected signature", "Internal error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (InvocationTargetException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method threw an exception", "Internal error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (NoSuchFieldException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		// TODO We should throw an appropriate exception if no class matches
