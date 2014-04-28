@@ -126,6 +126,11 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		return mSponsors;
 	}
 	
+	/**
+	 * Gets the default IP port used by a specified database type (sponsor)
+	 * @param sSponsor the name of the database type / sponsor
+	 * @return the default IP port for the specified database type, if the database is recognized, otherwise -1
+	 */
 	public static int getDefaultPort( String sSponsor )
 	{
 		int iPort = -1;
