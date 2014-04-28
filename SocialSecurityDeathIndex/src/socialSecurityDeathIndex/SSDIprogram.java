@@ -8,12 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.*;
 
@@ -38,18 +34,13 @@ public class SSDIprogram implements Serializable {
 	private Boolean mAddRecords = false;
 	private int mDatabasePort = 0;
 	private String mDatabaseType = BeanDatabaseConnection.SPONSOR;
-	private static final String NewLine = System.getProperty("line.separator");
 	private static SSDIprogram mDefaultInstance = null;
-	private static List<Class<? extends IDatabaseConnection>> mSponsors = new ArrayList<Class<? extends IDatabaseConnection>>();
 	
 	/**
 	 * Default constructor made private; use a named constructor to obtain an instance
 	 */
 	private SSDIprogram()
 	{
-		mSponsors.add( BeanDatabaseConnection.class );
-		mSponsors.add( MySqlDatabaseConnection.class );
-		mSponsors.add( SqlServerDatabaseConnection.class );
 	}
 	
 	/**
@@ -234,38 +225,7 @@ public class SSDIprogram implements Serializable {
 		String sOldValue = mDatabaseType;
 		mDatabaseType = databaseType; 
 		firePropertyChange("databaseType", sOldValue, databaseType);
-		
-		for ( Class<? extends IDatabaseConnection> cNext : mSponsors )
-		{
-			try {
-				Method getSponsor = cNext.getMethod("getSponsor", (Class<?>[])null);
-				String sSponsor = (String) getSponsor.invoke(null, (Object[])null);
-				if ( databaseType.equalsIgnoreCase(sSponsor))
-				{
-					int iPort = (Integer)cNext.getField("DEFAULT_PORT").getInt(null);
-					setDatabasePort( iPort );
-				}
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"getSponsor\" method", "Internal error", JOptionPane.ERROR_MESSAGE);
-			} catch (SecurityException e) {
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "generated a security violation executing the \"getSponsor\" method" + NewLine + "or accessing the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "lacks access to either the \"getSponsor\" method" + NewLine + "or the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method did not match the expected signature", "Internal error", JOptionPane.ERROR_MESSAGE);
-				e.printStackTrace();
-			} catch (InvocationTargetException e) {
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method threw an exception", "Internal error", JOptionPane.ERROR_MESSAGE);
-				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
-			}
-		}
-		// TODO We should throw an appropriate exception if no class matches
+		setDatabasePort( DatabaseConnection.getDefaultPort(databaseType) );
 	}
 	
 	private PropertyChangeSupport changeSupport = 

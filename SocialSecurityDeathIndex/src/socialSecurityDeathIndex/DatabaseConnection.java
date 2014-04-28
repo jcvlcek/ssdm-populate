@@ -4,12 +4,16 @@
 package socialSecurityDeathIndex;
 
 import java.awt.GridLayout;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -71,6 +75,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	
 	private static final String LINE_SEPARATOR = System.getProperty( "line.separator");
 	private static final DateFormat mDateFormat = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+	private static List<Class<? extends IDatabaseConnection>> mSponsors = null;
+	private static final String NewLine = System.getProperty("line.separator");
 
 	private String mDatabaseName;
 	private String mHostname;
@@ -105,6 +111,57 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		else // if ( sSponsor.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
 			return new BeanDatabaseConnection();
 		// TODO Else we should actually throw an appropriate exception
+	}
+	
+	private static List<Class<? extends IDatabaseConnection>> getSponsors()
+	{
+		if ( mSponsors == null )
+		{
+			mSponsors = new ArrayList<Class<? extends IDatabaseConnection>>();
+			mSponsors.add( BeanDatabaseConnection.class );
+			mSponsors.add( MySqlDatabaseConnection.class );
+			mSponsors.add( SqlServerDatabaseConnection.class );
+		}
+		
+		return mSponsors;
+	}
+	
+	public static int getDefaultPort( String sSponsor )
+	{
+		int iPort = -1;
+		
+		for ( Class<? extends IDatabaseConnection> cNext : getSponsors() )
+		{
+			try {
+				Method getSponsor = cNext.getMethod("getSponsor", (Class<?>[])null);
+				String sNextSponsor = (String) getSponsor.invoke(null, (Object[])null);
+				if ( sNextSponsor.equalsIgnoreCase(sSponsor))
+				{
+					iPort = (Integer)cNext.getField("DEFAULT_PORT").getInt(null);
+					break;
+				}
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"getSponsor\" method", "Internal error", JOptionPane.ERROR_MESSAGE);
+			} catch (SecurityException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "generated a security violation executing the \"getSponsor\" method" + NewLine + "or accessing the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "lacks access to either the \"getSponsor\" method" + NewLine + "or the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method did not match the expected signature", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method threw an exception", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		// TODO We should throw an appropriate exception if no class matches
+		return iPort;
 	}
 	
 	/**
