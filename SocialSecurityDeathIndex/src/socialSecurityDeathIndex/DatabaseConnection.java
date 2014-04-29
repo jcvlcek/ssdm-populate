@@ -97,20 +97,28 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	/**
 	 * Create a connection corresponding to the provided sponsor specification
 	 * @param sSponsor the sponsor (vendor, etc.) of the database to be connected
-	 * @return an as-yet unconnected database connection
+	 * @return an as-yet unconnected database connection,
+	 * or <code>null</code> if <code>sSponsor</code> is not a supported database sponsor
 	 */
 	public static IDatabaseConnection CreateConnection( String sSponsor )
 	{
-		// Still an ugly, switch-statement-based approach,
-		// but at least it's here and not in SSDIprogram
-		// TODO: Use Java's ServiceLoader mechanism instead
-		if ( sSponsor.equalsIgnoreCase(MySqlDatabaseConnection.SPONSOR))
-			return new MySqlDatabaseConnection();
-		else if ( sSponsor.equalsIgnoreCase(SqlServerDatabaseConnection.SPONSOR) )
-			return new SqlServerDatabaseConnection();
-		else // if ( sSponsor.equalsIgnoreCase(BeanDatabaseConnection.SPONSOR))
-			return new BeanDatabaseConnection();
+		// TODO: Use Java's ServiceLoader mechanism instead (?)
+		Class<? extends IDatabaseConnection> cTarget = getConnectionClass( sSponsor );
+		if ( cTarget != null )
+		{
+			try {
+				return cTarget.newInstance();
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		// TODO Else we should actually throw an appropriate exception
+		return null;
 	}
 	
 	private static List<Class<? extends IDatabaseConnection>> getSponsors()
@@ -126,25 +134,15 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		return mSponsors;
 	}
 	
-	/**
-	 * Gets the default IP port used by a specified database type (sponsor)
-	 * @param sSponsor the name of the database type / sponsor
-	 * @return the default IP port for the specified database type, if the database is recognized, otherwise -1
-	 */
-	public static int getDefaultPort( String sSponsor )
+	private static Class<? extends IDatabaseConnection> getConnectionClass( String sSponsor )
 	{
-		int iPort = -1;
-		
 		for ( Class<? extends IDatabaseConnection> cNext : getSponsors() )
 		{
 			try {
 				Method getSponsor = cNext.getMethod("getSponsor", (Class<?>[])null);
 				String sNextSponsor = (String) getSponsor.invoke(null, (Object[])null);
 				if ( sNextSponsor.equalsIgnoreCase(sSponsor))
-				{
-					iPort = (Integer)cNext.getField("DEFAULT_PORT").getInt(null);
-					break;
-				}
+					return cNext;
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"getSponsor\" method", "Internal error", JOptionPane.ERROR_MESSAGE);
@@ -160,11 +158,41 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			} catch (InvocationTargetException e) {
 				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"'s" + NewLine + "\"getSponsor\" method threw an exception", "Internal error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-				JOptionPane.showMessageDialog(null, "Class \"" + cNext.getName() + "\"" + NewLine + " does not implement required static \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
+		return null;
+	}
+	
+	/**
+	 * Gets the default IP port used by a specified database type (sponsor)
+	 * @param sSponsor the name of the database type / sponsor
+	 * @return the default IP port for the specified database type, if the database is recognized, otherwise -1
+	 */
+	public static int getDefaultPort( String sSponsor )
+	{
+		int iPort = -1;
+		
+		Class<? extends IDatabaseConnection> cTarget = getConnectionClass( sSponsor );
+		
+		if ( cTarget != null )
+		{
+			try {
+				iPort = (Integer)cTarget.getField("DEFAULT_PORT").getInt(null);
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + " does not implement required static \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+			} catch (SecurityException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"'s" + NewLine + "generated a security violation executing the \"getSponsor\" method" + NewLine + "or accessing the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"'s" + NewLine + "lacks access to either the \"getSponsor\" method" + NewLine + "or the \"DEFAULT_PORT\" field", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"'s" + NewLine + "\"getSponsor\" method did not match the expected signature", "Internal error", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+		}
+
 		// TODO We should throw an appropriate exception if no class matches
 		return iPort;
 	}
