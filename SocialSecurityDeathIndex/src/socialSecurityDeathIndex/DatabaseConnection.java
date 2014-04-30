@@ -261,10 +261,10 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			JOptionPane.showMessageDialog(null, "Required database connection class not loaded:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Required database connection class cannot be loaded:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Required database connection class or its default constructor is not accessible:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 	}
@@ -299,7 +299,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			try {
 				mConnection.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// We're just going to eat the exception, but will do a stack trace for possible diagnostics
 				e.printStackTrace();
 			} finally {
 				mConnection = null;		
