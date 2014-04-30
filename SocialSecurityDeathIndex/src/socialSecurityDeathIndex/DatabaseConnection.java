@@ -4,6 +4,7 @@
 package socialSecurityDeathIndex;
 
 import java.awt.GridLayout;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -107,12 +108,23 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		if ( cTarget != null )
 		{
 			try {
-				return cTarget.newInstance();
+				Constructor<? extends IDatabaseConnection> ctor = cTarget.getConstructor((Class<?>[])null);
+				return (IDatabaseConnection) ctor.newInstance();
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + "is an abstract class", "Cannot instance class", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + "does not provide a default constructor", "Cannot instance class", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + "does not provide an accessible default constructor", "Cannot instance class", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + "constructor received an illegal argument", "Cannot instance class", JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				JOptionPane.showMessageDialog(null, "Class \"" + cTarget.getName() + "\"" + NewLine + "constructor threw an exception:" + NewLine +
+						e.getTargetException().getMessage(), "Cannot instance class", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
 			}
 		}
