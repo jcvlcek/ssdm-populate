@@ -387,6 +387,9 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		mUsername = sUsername;
 	}
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#RecordExists(socialSecurityDeathIndex.IDeathRecord)
+	 */
 	@Override
 	public Boolean RecordExists(IDeathRecord drTarg) {
 		return Match( drTarg.getSSAN()) != null;
@@ -430,7 +433,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	}
 
 	/* (non-Javadoc)
-	 * @see socialSecurityDeathIndex.IDatabaseConnection#AddRecrd(socialSecurityDeathIndex.IDeathRecord)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#AddRecord(socialSecurityDeathIndex.IDeathRecord)
 	 */
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
