@@ -429,6 +429,9 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see socialSecurityDeathIndex.IDatabaseConnection#AddRecrd(socialSecurityDeathIndex.IDeathRecord)
+	 */
 	@Override
 	public void AddRecord(IDeathRecord drNew) throws DuplicateKeyException {
 		Statement stmt = null;
