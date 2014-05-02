@@ -5,7 +5,7 @@ package socialSecurityDeathIndex;
 
 /**
  * Database-agnostic interface implemented by any class representing
- * a connection to a database.
+ * a connection to a database hosting Social Security Death Index data
  * @author Jim Vlcek
  */
 public interface IDatabaseConnection {
