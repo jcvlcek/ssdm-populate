@@ -253,20 +253,29 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 */
 	@Override
 	public void Connect() throws DbConnectionException {
+		boolean bSuccess = false;
+		Exception ex = null;
+		String sMessage = "No error connecting to database";
+		
 		try {
 			ConnectToDatabase( mPort );
+			bSuccess = true;
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			sMessage = "SQL exception on connection to database:"; ex = e;
 		} catch (ClassNotFoundException e) {
-			JOptionPane.showMessageDialog(null, "Required database connection class not loaded:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			sMessage = "Required database connection class not loaded:"; ex = e;
 		} catch (InstantiationException e) {
-			JOptionPane.showMessageDialog(null, "Required database connection class cannot be loaded:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			sMessage = "Required database connection class cannot be loaded:"; ex = e;
 		} catch (IllegalAccessException e) {
-			JOptionPane.showMessageDialog(null, "Required database connection class or its default constructor is not accessible:" + LINE_SEPARATOR + e.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
+			sMessage = "Required database connection class or its default constructor is not accessible:"; ex = e;
+		}
+		finally {
+			if ( !bSuccess )
+			{
+				JOptionPane.showMessageDialog(null, sMessage + LINE_SEPARATOR + ex.getMessage(), "Unable to connect to database \"" + getDatabaseName() + "\"", JOptionPane.ERROR_MESSAGE);
+				ex.printStackTrace();
+				throw new DbConnectionException( sMessage, ex );
+			}
 		}
 	}
 	
