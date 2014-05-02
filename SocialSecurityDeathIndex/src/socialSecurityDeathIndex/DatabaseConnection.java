@@ -88,8 +88,9 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 
 	/**
 	 * Default constructor for the DatabaseConnection class
+	 * Creates a potential connection to the default server and database name
 	 */
-	public DatabaseConnection() {
+	protected DatabaseConnection() {
 		mHostname = DEFAULT_DATABASE_HOST;
 		mDatabaseName = DEFAULT_DATABASE_NAME;
 		mPort = 0;
