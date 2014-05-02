@@ -23,5 +23,14 @@ public class DbConnectionException extends Exception {
 	public DbConnectionException( String message ) {
 		super( message );
 	}
-
+	
+	/**
+	 * Forward a caught exception as a {@link DbConnectionException}
+	 * @param message a string describing the caught exception in terms of a database connection
+	 * @param innerException the caught-and-forwarded exception
+	 */
+	public DbConnectionException( String message, Throwable innerException )
+	{
+		super( message, innerException );
+	}
 }
