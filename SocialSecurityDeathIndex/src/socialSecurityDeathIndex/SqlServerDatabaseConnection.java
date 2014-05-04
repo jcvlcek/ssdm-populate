@@ -33,6 +33,12 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	 * The unique driver ID for connections to databases of this type
 	 */
 	public static final String DEFAULT_DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	
+	/**
+	 * Reference to driver instance; maintained so we only have to instantiate
+	 * the driver class once
+	 */
+	private static Object mDriverInstance = null;
 
 	/**
 	 * Creates a new instance of an SqlServerDatabaseConnection object
@@ -63,7 +69,8 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
 		String driver = DEFAULT_DATABASE_DRIVER;
-		Class.forName(driver).newInstance();
+		if ( mDriverInstance == null )
+			mDriverInstance = Class.forName(driver).newInstance();
 		// TODO: Enable selection of integrated security or manual authentication
 		// String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( true ) // ( sPassword != null )

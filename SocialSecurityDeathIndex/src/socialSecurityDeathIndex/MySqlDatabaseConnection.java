@@ -34,6 +34,12 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	public static final String DEFAULT_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	
 	/**
+	 * Reference to driver instance; maintained so we only have to instantiate
+	 * the driver class once
+	 */
+	private static Object mDriverInstance = null;
+	
+	/**
 	 * Creates a new instance of a MySqlDatabaseConnection object
 	 */
 	public MySqlDatabaseConnection() {
@@ -67,7 +73,8 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		String driver = DEFAULT_DATABASE_DRIVER;
 		// TODO: newInstance considered evil: http://stackoverflow.com/questions/195321/why-is-class-newinstance-evil
 		// Replace it with a better approach
-		Class.forName(driver).newInstance();
+		if ( mDriverInstance == null )
+			mDriverInstance = Class.forName(driver).newInstance();
 		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( sPassword != null )
 		{
