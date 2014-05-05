@@ -3,6 +3,8 @@
  */
 package socialSecurityDeathIndex;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -64,17 +66,33 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	@Override
-	public void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase( int iPort ) throws DbConnectionException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
 		String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + "/";
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
-		// TODO: newInstance considered evil: http://stackoverflow.com/questions/195321/why-is-class-newinstance-evil
-		// Replace it with a better approach
+
 		if ( mDriverInstance == null )
-			mDriverInstance = Class.forName(driver).newInstance();
+		{
+			try {
+				Constructor<?> ctor = Class.forName(driver).getConstructor( (Class<?>[])null );
+				mDriverInstance = ctor.newInstance((Object[])null);
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Driver class \"" + driver + "\" does not have a default constructor - cannot instantiate", e );
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Security exception thrown when attempting to instantiate driver class \"" + driver + "\"", e);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Illegal argument to constructor for driver class \"" + driver + "\"", e);
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Exception thrown while creating instance of driver class \"" + driver + "\"", e);
+			}
+		}
 		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( sPassword != null )
 		{
