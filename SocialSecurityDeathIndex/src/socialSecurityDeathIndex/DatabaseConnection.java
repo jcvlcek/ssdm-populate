@@ -320,12 +320,13 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	/**
 	 * Execute a database-specific connection
 	 * @param iPort TCP port to connect to
+	 * @throws DbConnectionException if an exception is thrown by a called method while attempting to establish a connection
 	 * @throws InstantiationException if the driver class for the chosen database sponsor cannot be loaded
 	 * @throws IllegalAccessException if the driver class or its nullary constructor is not accessible
 	 * @throws ClassNotFoundException if the driver class for the chosen database sponsor cannot be found
 	 * @throws SQLException if an error occurs while connecting to the database
 	 */
-	public abstract void ConnectToDatabase( int iPort ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	public abstract void ConnectToDatabase( int iPort ) throws DbConnectionException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
 	
 	/**
 	 * Get the name of the database on the remote server
