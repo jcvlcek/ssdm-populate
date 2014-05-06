@@ -35,12 +35,6 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	public static final String DEFAULT_DATABASE_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	
 	/**
-	 * Reference to driver instance; maintained so we only have to instantiate
-	 * the driver class once
-	 */
-	private static Object mDriverInstance = null;
-
-	/**
 	 * Creates a new instance of an SqlServerDatabaseConnection object
 	 */
 	public SqlServerDatabaseConnection() {
@@ -58,19 +52,18 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	/**
 	 * Instantiates the <code>com.microsoft.sqlserver.jdbc.SQLServerDriver</code> driver,
 	 * and attempts to make a connection to the remote SQL Server database
-	 * @throws InstantiationException if the SQL server driver cannot be instantiated
-	 * @throws IllegalAccessException if the user has insufficient access privileges to instantiate and exercise the SQL server connection driver
-	 * @throws ClassNotFoundException if the SQL server driver class cannot be found
+	 * @param iPort the IP port on which the database server is listening
+	 * @throws DbConnectionException if the required driver class cannot be instantiated
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	@Override
-	public void ConnectToDatabase(int iPort) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase(int iPort) throws SQLException, DbConnectionException
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
 		String driver = DEFAULT_DATABASE_DRIVER;
-		if ( mDriverInstance == null )
-			mDriverInstance = Class.forName(driver).newInstance();
+
+		LoadDriver( driver );
 		// TODO: Enable selection of integrated security or manual authentication
 		// String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( true ) // ( sPassword != null )

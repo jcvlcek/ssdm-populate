@@ -60,8 +60,7 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 */
 	@Override
 	public void ConnectToDatabase( int iPort )
-			throws InstantiationException, IllegalAccessException,
-			ClassNotFoundException, SQLException {
+			throws DbConnectionException, SQLException {
 		// Nothing to do here - yet, at least
 	}
 

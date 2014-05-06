@@ -3,8 +3,6 @@
  */
 package socialSecurityDeathIndex;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
@@ -36,12 +34,6 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	public static final String DEFAULT_DATABASE_DRIVER = "com.mysql.jdbc.Driver";
 	
 	/**
-	 * Reference to driver instance; maintained so we only have to instantiate
-	 * the driver class once
-	 */
-	private static Object mDriverInstance = null;
-	
-	/**
 	 * Creates a new instance of a MySqlDatabaseConnection object
 	 */
 	public MySqlDatabaseConnection() {
@@ -60,13 +52,11 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	 * Instantiates the <code>com.mysql.jdbc.Driver</code> driver,
 	 * and attempts to make a connection to the remote MySQL database
 	 * @param iPort the IP port on which the database server is listening
-	 * @throws InstantiationException if the MySQL driver cannot be instantiated
-	 * @throws IllegalAccessException if the user has insufficient access privileges to instantiate and exercise the MySQL connection driver
-	 * @throws ClassNotFoundException if the MySQL driver class cannot be found
+	 * @throws DbConnectionException if the required driver class cannot be instantiated
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	@Override
-	public void ConnectToDatabase( int iPort ) throws DbConnectionException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
+	public void ConnectToDatabase( int iPort ) throws DbConnectionException, SQLException
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
@@ -74,25 +64,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		String dbName = DEFAULT_DATABASE_NAME;
 		String driver = DEFAULT_DATABASE_DRIVER;
 
-		if ( mDriverInstance == null )
-		{
-			try {
-				Constructor<?> ctor = Class.forName(driver).getConstructor( (Class<?>[])null );
-				mDriverInstance = ctor.newInstance((Object[])null);
-			} catch (NoSuchMethodException e) {
-				e.printStackTrace();
-				throw new DbConnectionException( "Driver class \"" + driver + "\" does not have a default constructor - cannot instantiate", e );
-			} catch (SecurityException e) {
-				e.printStackTrace();
-				throw new DbConnectionException( "Security exception thrown when attempting to instantiate driver class \"" + driver + "\"", e);
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-				throw new DbConnectionException( "Illegal argument to constructor for driver class \"" + driver + "\"", e);
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-				throw new DbConnectionException( "Exception thrown while creating instance of driver class \"" + driver + "\"", e);
-			}
-		}
+		LoadDriver( driver );
 		String sPassword = GetPassword( DEFAULT_DATABASE_USER );
 		if ( sPassword != null )
 		{

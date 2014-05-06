@@ -83,6 +83,12 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	private String mHostname;
 	private String mUsername;
 	private int mPort;
+	
+	/**
+	 * Reference to driver instance; maintained so we only have to instantiate
+	 * the driver class once
+	 */
+	protected static Object mDriverInstance = null;
 
 	protected Connection mConnection = null;
 
@@ -94,6 +100,44 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		mHostname = DEFAULT_DATABASE_HOST;
 		mDatabaseName = DEFAULT_DATABASE_NAME;
 		mPort = 0;
+	}
+	
+	/**
+	 * Load a necessary database driver class (e.g. MySQL, SQL Server) and instantiate it
+	 * @param driver the name of the database driver class to load and instantiate
+	 * @throws DbConnectionException if the class cannot be loaded or cannot be instantiated
+	 */
+	protected static void LoadDriver( String driver ) throws DbConnectionException
+	{
+		if ( mDriverInstance == null )
+		{
+			try {
+				Constructor<?> ctor = Class.forName(driver).getConstructor( (Class<?>[])null );
+				mDriverInstance = ctor.newInstance((Object[])null);
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Driver class \"" + driver + "\" does not have a default constructor - cannot instantiate", e );
+			} catch (SecurityException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Security exception thrown when attempting to instantiate driver class \"" + driver + "\"", e);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Illegal argument to constructor for driver class \"" + driver + "\"", e);
+			} catch (InvocationTargetException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Exception thrown while creating instance of driver class \"" + driver + "\"", e);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Requested database driver class \"" + driver + "\" not found", e );
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DbConnectionException( "Exception thrown in constructor for database driver class \"" + driver + "\"", e );
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "Constructor for database driver class \"" + driver + "\" is not accessible", e );
+			}
+		}		
 	}
 	
 	/**
@@ -262,12 +306,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 			bSuccess = true;
 		} catch (SQLException e) {
 			sMessage = "SQL exception on connection to database:"; ex = e;
-		} catch (ClassNotFoundException e) {
-			sMessage = "Required database connection class not loaded:"; ex = e;
-		} catch (InstantiationException e) {
+		} catch (DbConnectionException e) {
 			sMessage = "Required database connection class cannot be loaded:"; ex = e;
-		} catch (IllegalAccessException e) {
-			sMessage = "Required database connection class or its default constructor is not accessible:"; ex = e;
 		}
 		finally {
 			if ( !bSuccess )
@@ -321,12 +361,9 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * Execute a database-specific connection
 	 * @param iPort TCP port to connect to
 	 * @throws DbConnectionException if an exception is thrown by a called method while attempting to establish a connection
-	 * @throws InstantiationException if the driver class for the chosen database sponsor cannot be loaded
-	 * @throws IllegalAccessException if the driver class or its nullary constructor is not accessible
-	 * @throws ClassNotFoundException if the driver class for the chosen database sponsor cannot be found
 	 * @throws SQLException if an error occurs while connecting to the database
 	 */
-	public abstract void ConnectToDatabase( int iPort ) throws DbConnectionException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException;
+	public abstract void ConnectToDatabase( int iPort ) throws DbConnectionException, SQLException;
 	
 	/**
 	 * Get the name of the database on the remote server
