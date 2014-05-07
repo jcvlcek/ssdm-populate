@@ -3,7 +3,6 @@
  */
 package socialSecurityDeathIndex;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -60,7 +59,7 @@ public final class BeanDatabaseConnection extends DatabaseConnection {
 	 */
 	@Override
 	public void ConnectToDatabase( int iPort )
-			throws DbConnectionException, SQLException {
+			throws DbConnectionException {
 		// Nothing to do here - yet, at least
 	}
 

@@ -57,7 +57,7 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	@Override
-	public void ConnectToDatabase(int iPort) throws SQLException, DbConnectionException
+	public void ConnectToDatabase(int iPort) throws DbConnectionException
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
@@ -71,7 +71,12 @@ public final class SqlServerDatabaseConnection extends DatabaseConnection {
 			// String user = getUsername();
 			// String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";user=" + user + ";password=" + sPassword + ";";
 			String url = DEFAULT_URL_BASE + DEFAULT_DATABASE_HOST + ":" + String.valueOf( iPort ) + ";databaseName=" + DEFAULT_DATABASE_NAME + ";integratedSecurity=true;";
-			mConnection = DriverManager.getConnection(url);
+			try {
+				mConnection = DriverManager.getConnection(url);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "SQL exception connecting to database \"" + url + DEFAULT_DATABASE_NAME + "\"", e);
+			}
 		}
 	}
 

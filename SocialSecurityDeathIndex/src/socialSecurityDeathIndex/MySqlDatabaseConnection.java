@@ -56,7 +56,7 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 	 * @throws SQLException if an SQL error occurs when connecting to the remote database
 	 */
 	@Override
-	public void ConnectToDatabase( int iPort ) throws DbConnectionException, SQLException
+	public void ConnectToDatabase( int iPort ) throws DbConnectionException
 	{
 		if ( iPort == 0 )
 			iPort = DEFAULT_PORT;
@@ -69,7 +69,12 @@ public final class MySqlDatabaseConnection extends DatabaseConnection {
 		if ( sPassword != null )
 		{
 			String user = getUsername();
-			mConnection = DriverManager.getConnection(url + dbName, user, sPassword);
+			try {
+				mConnection = DriverManager.getConnection(url + dbName, user, sPassword);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DbConnectionException( "SQL exception connecting to database \"" + url + dbName + "\"", e);
+			}
 		}
 	}
 

@@ -304,10 +304,8 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 		try {
 			ConnectToDatabase( mPort );
 			bSuccess = true;
-		} catch (SQLException e) {
-			sMessage = "SQL exception on connection to database:"; ex = e;
 		} catch (DbConnectionException e) {
-			sMessage = "Required database connection class cannot be loaded:"; ex = e;
+			sMessage = "Required database connection class cannot be loaded," + LINE_SEPARATOR + "or a connection could not be made:"; ex = e;
 		}
 		finally {
 			if ( !bSuccess )
@@ -363,7 +361,7 @@ public abstract class DatabaseConnection implements IDatabaseConnection {
 	 * @throws DbConnectionException if an exception is thrown by a called method while attempting to establish a connection
 	 * @throws SQLException if an error occurs while connecting to the database
 	 */
-	public abstract void ConnectToDatabase( int iPort ) throws DbConnectionException, SQLException;
+	public abstract void ConnectToDatabase( int iPort ) throws DbConnectionException;
 	
 	/**
 	 * Get the name of the database on the remote server
