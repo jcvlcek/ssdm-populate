@@ -4,7 +4,8 @@
  * <p>
  * The project currently supports MySQL and SQL Server databases.  It also
  * implements a trivial, in-memory "database" for testing purposes.
- * Regenerated:
+ * <p>
+ * Javadocs last generated:
  * 06 May 2014
  */
 package socialSecurityDeathIndex;
